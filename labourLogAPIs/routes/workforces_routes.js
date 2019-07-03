@@ -27,14 +27,39 @@ router.get('/:id?', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
+    console.log(req.body);
     Workforce.addWorkforce(req.body, function (err, count) {
         if (err) {
             res.json(err);
         }
         else {
-            res.json(count);
+            res.status(201).send(`Workforce added with ID: ${rows.insertId}`);
         }
     });
 });
+
+router.put('/:id', function (req, res, next) {
+    Workforce.editWorkforce(req.body, req.params.id, function (err, rows) {
+        if (err) {
+            res.json(err);
+        }
+
+        else {
+            res.json(rows);
+            //res.status(201).send(`Workforce added with ID: ${rows.insertId}`);
+        }
+    });
+});
+
+router.delete('/:id', function (req, res, next) {
+    Workforce.deleteWorkforce(req.params.id, function (err, rows) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(rows);
+        }
+    });
+})
 
 module.exports = router;
