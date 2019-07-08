@@ -1,0 +1,99 @@
+<template>
+  <v-card app>
+    <v-layout justify-space-between pa-3>
+      <v-flex d-flex text-xs-center>
+        <v-scroll-y-transition mode="out-in">
+        <v-flex xs12>
+            <v-card >
+              <v-layout>
+                <v-flex xs5>
+                  <v-img
+                    src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
+                  class="mb-4"
+                    height="125px"
+                    contain
+                  ></v-img>
+                </v-flex>
+                <v-flex xs7>
+                  <v-card-title primary-title>
+                    <div>
+                      <div class="Name">MICROSOFT</div>
+                      <div class="mobileno">9558907359</div>
+                      <div class="email">dhrumildshah1998@gmail.com</div>
+                      <div class="no of workers">no of worker : 10</div>
+                      <div class="no of not assign workers">no of not assign workers : 10</div>
+                    </div>
+                  </v-card-title>
+                </v-flex>
+              </v-layout>
+            </v-card>
+          </v-flex>
+
+        </v-scroll-y-transition>
+      </v-flex>
+    </v-layout>
+  </v-card>
+</template>
+
+<script>
+const avatars = [
+  '?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban',
+  '?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun',
+  '?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong',
+  '?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair',
+  '?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly'
+]
+
+const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+export default {
+  data () {
+    return {
+      active: [],
+      avatar: null,
+      open: [],
+      users: []
+    }
+  },
+  computed: {
+    items () {
+      return [
+        {
+          name: 'Users',
+          children: this.users
+        }
+      ]
+    },
+    selected () {
+      if (!this.active.length) return undefined
+
+      const id = this.active[0]
+
+      return this.users.find(user => user.id === id)
+    }
+  },
+
+  watch: {
+    selected: 'randomAvatar'
+  },
+
+  methods: {
+    async fetchUsers (item) {
+      // Remove in 6 months and say
+      // you've made optimizations! :)
+      await pause(1500)
+
+      return fetch('https://jsonplaceholder.typicode.com/users')
+        .then(res => res.json())
+        .then(json => item.children.push(...json))
+        .catch(err => console.warn(err))
+    },
+    randomAvatar () {
+      this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
+    }
+  }
+}
+</script>
+
+<style>
+</style>

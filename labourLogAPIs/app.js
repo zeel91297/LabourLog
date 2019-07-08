@@ -10,7 +10,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var WorkForceRouter = require('./routes/workforces_routes');
-
+var Sourcesrouter = require('./routes/Sources_routes');
+var Clientworkforce = require('./routes/client_workforce_routes')
 
 var app = express();
 
@@ -28,6 +29,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/workforces', WorkForceRouter);
+app.use('/Sources',Sourcesrouter);
+app.use('/clientworkforce',Clientworkforce);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
