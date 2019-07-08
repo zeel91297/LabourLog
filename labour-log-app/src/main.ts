@@ -5,6 +5,8 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 
+import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
+
 import VueResource from 'vue-resource'
 
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader

@@ -9,6 +9,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var WorkForceRouter = require('./routes/workforces_routes');
+var Sourcesrouter = require('./routes/Sources_routes');
+var Clientworkforce = require('./routes/client_workforce_routes')
 var JobRolesRouter = require('./routes/jobroles_routes');
 var ClientRouter = require('./routes/client_routes');
 var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_details_routes');
@@ -31,6 +33,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/workforces', WorkForceRouter);
+app.use('/Sources',Sourcesrouter);
+app.use('/clientworkforce',Clientworkforce);
 app.use('/jobroles', JobRolesRouter);
 app.use('/clients', ClientRouter);
 // app.use('/workForceWorkingDetails', WorkForceWorkingDetailsRouter);
