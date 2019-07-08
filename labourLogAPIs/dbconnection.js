@@ -2,7 +2,7 @@ var mysql = require('mysql');
 
 var connection = mysql.createPool({
     user: 'root',
-    password: 'mohit1930',
+    password: '',
     database: 'labour_log'
 });
 

@@ -13,6 +13,8 @@ var JobRolesRouter = require('./routes/jobroles_routes');
 var ClientRouter = require('./routes/client_routes');
 var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_details_routes');
 
+var WorkforceSourceJob = require('./routes/workforceSourceRoutes');
+
 var app = express();
 
 // view engine setup
@@ -33,6 +35,7 @@ app.use('/jobroles', JobRolesRouter);
 app.use('/clients', ClientRouter);
 // app.use('/workForceWorkingDetails', WorkForceWorkingDetailsRouter);
 app.use('/Workforcesworkingdetails', WorkForcesWorkingDetailsRouter);
+app.use('/WorkforceSourceJob', WorkforceSourceJob);
 
 
 // catch 404 and forward to error handler

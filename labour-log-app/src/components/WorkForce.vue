@@ -22,14 +22,14 @@
                     </v-avatar>
                     <h3 class="headline mb-2">{{workForceObj.workforce_name}}</h3>
                     <!-- <div class="blue--text mb-2">Sincere@april.biz</div> -->
-                    <div class="blue--text subheading font-weight-bold">{{workForceObj.source_id}}</div>
+                    <div class="blue--text subheading font-weight-bold">{{workForceObj.source_name}}</div>
                   </v-card-text>
                   <v-divider></v-divider>
                   <v-layout tag="v-card-text" text-xs-left wrap>
                     <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Rate / Day:</v-flex>
                     <v-flex>{{workForceObj.workforce_rate | currency('zł')}}</v-flex>
                     <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Job Role:</v-flex>
-                    <v-flex>{{workForceObj.job_role_id}}</v-flex>
+                    <v-flex>{{workForceObj.role_name}}</v-flex>
                     <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Phone:</v-flex>
                     <v-flex>{{workForceObj.workforce_contact}}</v-flex>
                   </v-layout>
@@ -51,13 +51,13 @@
 import currencyFilter from "../shared/currency-filter";
 import WorkForceCalender from "@/components/WorkForceCalender.vue";
 
-const avatars = [
+/* const avatars = [
   "?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",
   "?accessoriesType=Sunglasses&avatarStyle=Circle&clotheColor=Gray02&clotheType=ShirtScoopNeck&eyeType=EyeRoll&eyebrowType=RaisedExcited&facialHairColor=Red&facialHairType=BeardMagestic&hairColor=Red&hatColor=White&mouthType=Twinkle&skinColor=DarkBrown&topType=LongHairBun",
   "?accessoriesType=Prescription02&avatarStyle=Circle&clotheColor=Black&clotheType=ShirtVNeck&eyeType=Surprised&eyebrowType=Angry&facialHairColor=Blonde&facialHairType=Blank&hairColor=Blonde&hatColor=PastelOrange&mouthType=Smile&skinColor=Black&topType=LongHairNotTooLong",
   "?accessoriesType=Round&avatarStyle=Circle&clotheColor=PastelOrange&clotheType=Overall&eyeType=Close&eyebrowType=AngryNatural&facialHairColor=Blonde&facialHairType=Blank&graphicType=Pizza&hairColor=Black&hatColor=PastelBlue&mouthType=Serious&skinColor=Light&topType=LongHairBigHair",
   "?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly"
-];
+]; */
 
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 

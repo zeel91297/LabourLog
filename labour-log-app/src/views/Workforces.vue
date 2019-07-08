@@ -2,7 +2,16 @@
   <div>
     <v-spacer></v-spacer>
     <h1>List of WorkForces</h1>
-
+    <v-spacer></v-spacer>
+    <v-text-field
+      class="mx-5"
+      flat
+      label="Search"
+      prepend-inner-icon="search"
+      solo-inverted
+      clearable
+      v-model="search"
+    ></v-text-field>
     <v-btn
       dark
       color="black"
@@ -45,14 +54,7 @@
     </v-navigation-drawer>
     <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
-        <v-flex md4 sm12 v-for="workData in workforceData" :key="workData.workforce_id">
-          <!-- <vue-flip active-click="true"  transition="2s">
-          <div slot="front">
-          </div>
-          <div slot="back">
-              <WorkForceCalender></WorkForceCalender>
-          </div>
-          </vue-flip>-->
+        <v-flex md4 lg4 sm12 v-for="workData in searchdWorkForce" :key="workData.workforce_id">
           <WorkForce :workForceObj="workData"></WorkForce>
         </v-flex>
       </v-layout>
@@ -70,18 +72,19 @@ export default {
   },
   data() {
     return {
-      drawer: true,
+      drawer: false,
       items: [
         { title: "Home", icon: "dashboard" },
         { title: "About", icon: "question_answer" }
       ],
       right: null,
-      workforceData: []
+      workforceData: [],
+      search: ""
     };
   },
   created() {
     workforceService
-      .getAllWorkForces()
+      .getAllWorkforceSourceJob()
       .then(result => {
         //console.log(result);
         //console.log(result.data);
@@ -95,6 +98,15 @@ export default {
   methods: {
     checkButton() {
       console.log("hello");
+    }
+  },
+  computed: {
+    searchdWorkForce() {
+      return this.workforceData.filter(workforce => {
+        return workforce.workforce_name
+          .toLowerCase()
+          .includes(this.search.toLowerCase());
+      });
     }
   }
 };
