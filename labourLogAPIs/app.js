@@ -1,4 +1,3 @@
-var express = require('express');
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -12,6 +11,11 @@ var usersRouter = require('./routes/users');
 var WorkForceRouter = require('./routes/workforces_routes');
 var Sourcesrouter = require('./routes/Sources_routes');
 var Clientworkforce = require('./routes/client_workforce_routes')
+var JobRolesRouter = require('./routes/jobroles_routes');
+var ClientRouter = require('./routes/client_routes');
+var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_details_routes');
+
+var WorkforceSourceJob = require('./routes/workforceSourceRoutes');
 
 var app = express();
 
@@ -19,10 +23,10 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-app.use(cors())
+app.use(cors());
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -31,6 +35,12 @@ app.use('/users', usersRouter);
 app.use('/workforces', WorkForceRouter);
 app.use('/Sources',Sourcesrouter);
 app.use('/clientworkforce',Clientworkforce);
+app.use('/jobroles', JobRolesRouter);
+app.use('/clients', ClientRouter);
+// app.use('/workForceWorkingDetails', WorkForceWorkingDetailsRouter);
+app.use('/Workforcesworkingdetails', WorkForcesWorkingDetailsRouter);
+app.use('/WorkforceSourceJob', WorkforceSourceJob);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

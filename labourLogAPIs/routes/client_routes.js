@@ -1,21 +1,21 @@
 var express = require('express');
 var router = express.Router();
-var Workforce = require('../models/workforces');
+var clients = require('../models/clients');
 
 router.get('/:id?', function (req, res, next) {
     if (req.params.id) {
         //console.log(req.params.id);
-        Workforce.getWorkforceById(req.params.id, function (err, rows) {
+        clients.getClientById(req.params.id, function (err, rows) {
             if (err) {
                 res.json(err);
             }
             else {
-                res.json(rows); 
+                res.json(rows);
             }
         });
     }
     else {
-        Workforce.getAllWorkForces(function (err, rows) {
+        clients.getAllClients(function (err, rows) {
             if (err) {
                 res.json(err);
             }
@@ -28,18 +28,18 @@ router.get('/:id?', function (req, res, next) {
 
 router.post('/', function (req, res, next) {
     console.log(req.body);
-    Workforce.addWorkforce(req.body, function (err, count) {
+    clients.addClient(req.body, function (err, count) {
         if (err) {
             res.json(err);
         }
         else {
-            res.status(201).send(`Workforce added with ID: ${count.insertId}`);
+            res.status(201).send(`Client added with ID: ${count.insertId}`);
         }
     });
 });
 
 router.put('/:id', function (req, res, next) {
-    Workforce.editWorkforce(req.body, req.params.id, function (err, rows) {
+    clients.editClient(req.body, req.params.id, function (err, rows) {
         if (err) {
             res.json(err);
         }
@@ -52,7 +52,7 @@ router.put('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function (req, res, next) {
-    Workforce.deleteWorkforce(req.params.id, function (err, rows) {
+    clients.deleteClient(req.params.id, function (err, rows) {
         if (err) {
             res.json(err);
         }
@@ -60,6 +60,6 @@ router.delete('/:id', function (req, res, next) {
             res.json(rows);
         }
     });
-});
+})
 
 module.exports = router;

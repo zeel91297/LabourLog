@@ -5,6 +5,7 @@
       <router-view></router-view>
     </v-content>
   </v-app>
+</template>
   <!-- <div id="app">
     <div id="nav">
       <router-link to="/">Home</router-link> |
@@ -12,7 +13,6 @@
     </div>
     <router-view/>
   </div>-->
-</template>
 
 <script>
 import NavBar from './components/NavBar.vue'
