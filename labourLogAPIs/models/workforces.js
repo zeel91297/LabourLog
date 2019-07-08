@@ -19,6 +19,9 @@ var Workforces = {
     },
     deleteWorkforce: function (id, callback) {
         return db.query("delete from workforces where workforce_id=?", [id], callback);
+    },
+    getAllWorkforceJobRoleSource: function (callback) {
+        return db.query("SELECT * from job_roles as jr, workforces as w, sources as s WHERE jr.job_role_id=w.job_role_id and w.source_id=s.source_id", callback);
     }
 };
 
