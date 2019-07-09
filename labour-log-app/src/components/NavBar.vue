@@ -9,7 +9,7 @@
         <v-btn @click="onClickWorkForces" flat>Work Forces</v-btn>
         <v-btn @click="onClickClients" flat>Clients</v-btn>
       </v-toolbar-items>
-      <v-menu class="hidden-sm-and-up">
+      <v-menu open-on-hover class="hidden-sm-and-up">
         <v-toolbar-side-icon slot="activator">
           <v-icon>more_vert</v-icon>
         </v-toolbar-side-icon>

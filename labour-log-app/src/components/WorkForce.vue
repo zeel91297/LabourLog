@@ -15,10 +15,8 @@
                   </v-btn>
                   <v-card-text>
                     <v-avatar size="88">
-                      <v-img
-                        src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
-                        class="mb-4"
-                      />
+                      <!-- src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light" -->
+                      <v-img src="http://localhost:3000/images/avataaars.png" class="mb-4" />
                     </v-avatar>
                     <h3 class="headline mb-2">{{workForceObj.workforce_name}}</h3>
                     <!-- <div class="blue--text mb-2">Sincere@april.biz</div> -->
@@ -48,8 +46,8 @@
 </template>
 
 <script>
-import currencyFilter from '../shared/currency-filter'
-import WorkForceCalender from '@/components/WorkForceCalender.vue'
+import currencyFilter from "../shared/currency-filter";
+import WorkForceCalender from "@/components/WorkForceCalender.vue";
 
 /* const avatars = [
   "?accessoriesType=Blank&avatarStyle=Circle&clotheColor=PastelGreen&clotheType=ShirtScoopNeck&eyeType=Wink&eyebrowType=UnibrowNatural&facialHairColor=Black&facialHairType=MoustacheMagnum&hairColor=Platinum&mouthType=Concerned&skinColor=Tanned&topType=Turban",
@@ -59,7 +57,7 @@ import WorkForceCalender from '@/components/WorkForceCalender.vue'
   "?accessoriesType=Kurt&avatarStyle=Circle&clotheColor=Gray01&clotheType=BlazerShirt&eyeType=Surprised&eyebrowType=Default&facialHairColor=Red&facialHairType=Blank&graphicType=Selena&hairColor=Red&hatColor=Blue02&mouthType=Twinkle&skinColor=Pale&topType=LongHairCurly"
 ]; */
 
-const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
+const pause = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export default {
   components: {
@@ -71,56 +69,56 @@ export default {
       required: true
     }
   },
-  data () {
+  data() {
     return {
       active: [],
       avatar: null,
       open: [],
       users: [],
       amt: 25
-    }
+    };
   },
   filters: {
     currency: currencyFilter
   },
   computed: {
-    items () {
+    items() {
       return [
         {
-          name: 'Users',
+          name: "Users",
           children: this.users
         }
-      ]
+      ];
     },
-    selected () {
-      if (!this.active.length) return undefined
+    selected() {
+      if (!this.active.length) return undefined;
 
-      const id = this.active[0]
+      const id = this.active[0];
 
-      return this.users.find(user => user.id === id)
+      return this.users.find(user => user.id === id);
     }
   },
 
   watch: {
-    selected: 'randomAvatar'
+    selected: "randomAvatar"
   },
 
   methods: {
-    async fetchUsers (item) {
+    async fetchUsers(item) {
       // Remove in 6 months and say
       // you've made optimizations! :)
-      await pause(1500)
+      await pause(1500);
 
-      return fetch('https://jsonplaceholder.typicode.com/users')
+      return fetch("https://jsonplaceholder.typicode.com/users")
         .then(res => res.json())
         .then(json => item.children.push(...json))
-        .catch(err => console.warn(err))
+        .catch(err => console.warn(err));
     },
-    randomAvatar () {
-      this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
+    randomAvatar() {
+      this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
     }
   }
-}
+};
 </script>
 
 <style>

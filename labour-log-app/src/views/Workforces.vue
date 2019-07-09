@@ -30,7 +30,8 @@
       <v-toolbar flat>
         <v-list>
           <v-list-tile>
-            <v-list-tile-title class="title">Filters</v-list-tile-title>
+            <v-list-tile-title class="title">Filters By:</v-list-tile-title>
+            <v-btn color="teal" flat outline @click="clearAllFilter" dark>Clear All</v-btn>
             <v-btn flat icon color="black" @click.stop="drawer = !drawer">
               <v-icon>close</v-icon>
             </v-btn>
@@ -38,23 +39,24 @@
         </v-list>
       </v-toolbar>
 
+      <v-switch
+        class="px-3"
+        color="success"
+        @click="checkSwitchValue"
+        label="Sort By Rate"
+        v-model="switchRate"
+      ></v-switch>
+
       <v-divider></v-divider>
       <v-subheader>By Sources</v-subheader>
-      <v-radio-group v-model="radioGroup">
-        <v-radio v-for="n in 3" :key="n" :label="`Radio ${n}`" :value="n"></v-radio>
+      <v-radio-group v-model="selectedSource" class="px-4">
+        <v-radio
+          v-for="source in sourcesData"
+          :key="source.source_id"
+          :label="source.source_name"
+          :value="source.source_id"
+        ></v-radio>
       </v-radio-group>
-
-      <!-- <v-list dense class="pt-0">
-        <v-list-tile v-for="item in items" :key="item.title" @click="checkButton">
-          <v-list-tile-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-tile-action>
-
-          <v-list-tile-content>
-            <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-          </v-list-tile-content>
-        </v-list-tile>
-      </v-list>-->
 
       <v-divider></v-divider>
       <v-subheader>By Job Roles</v-subheader>
@@ -70,6 +72,18 @@
       </v-container>
       <v-divider></v-divider>
       <v-subheader>By Clients</v-subheader>
+      <v-select
+        :items="clientsData"
+        v-model="selectedClients"
+        label="Select Client"
+        item-text="client_name"
+        bottom
+        autocomplete
+        attach
+        chips
+        multiple
+        class="px-3"
+      ></v-select>
     </v-navigation-drawer>
     <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
@@ -85,6 +99,8 @@
 import WorkForce from "@/components/WorkForce.vue";
 import workforceService from "../services/workforceService.js";
 import jobRolesServices from "../services/jobRolesServices.js";
+import sourcesServices from "../services/sourcesServices";
+import clientsServices from "../services/clientsServices";
 
 export default {
   components: {
@@ -101,21 +117,17 @@ export default {
       workforceData: [],
       jobRolesData: [],
       selectedJobRole: [],
-      search: ""
+      sourcesData: [],
+      selectedSource: null,
+      clientsData: [],
+      selectedClients: [],
+      search: "",
+      switchRate: false
     };
   },
   created() {
-    workforceService
-      .getAllWorkforceSourceJob()
-      .then(result => {
-        // console.log(result);
-        // console.log(result.data);
-        this.workforceData = result.data;
-        console.log(this.workforceData);
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.getAllWorkforce();
+
     jobRolesServices
       .getAllJobRoles()
       .then(result => {
@@ -124,30 +136,70 @@ export default {
       .catch(err => {
         console.log(err);
       });
+
+    sourcesServices
+      .getAllSources()
+      .then(result => {
+        this.sourcesData = result.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
+
+    clientsServices
+      .getAllClients()
+      .then(result => {
+        this.clientsData = result.data;
+      })
+      .catch(err => {
+        console.log(err);
+      });
   },
   methods: {
     checkButton() {
       console.log("hello");
+    },
+    getAllWorkforce() {
+      workforceService
+        .getAllWorkforceSourceJob()
+        .then(result => {
+          this.workforceData = result.data;
+          //console.log(this.workforceData);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    clearAllFilter() {
+      this.selectedJobRole = [];
+      this.selectedSource = null;
+      this.selectedClients = [];
+      this.switchRate = false;
+      this.getAllWorkforce();
+    },
+    checkSwitchValue() {
+      if (this.switchRate) {
+        //this.getAllWorkforce();
+        //this.switchRate = false;
+      } else {
+        this.switchRate = true;
+        this.workforceData.sort(
+          (a, b) => parseFloat(a.workforce_rate) - parseFloat(b.workforce_rate)
+        );
+        console.log(this.switchRate);
+      }
     }
   },
   computed: {
     searchdWorkForce() {
-      /* return this.workforceData.filter(workforce => {
-        return (
-          workforce.workforce_name
-            .toLowerCase()
-            .includes(this.search.toLowerCase()) ||
-          workforce.job_role_id.includes(this.selectedJobRole)
-        );
-      }); */
-
       return this.workforceData.filter(item => {
         return (
           (this.search.length === 0 ||
             item.workforce_name
               .toLowerCase()
               .includes(this.search.toLowerCase())) &&
-          /* (this.colors.length === 0 || this.colors.includes(item.color)) && */
+          (this.selectedSource === null ||
+            this.selectedSource === item.source_id) &&
           (this.selectedJobRole.length === 0 ||
             this.selectedJobRole.includes(item.job_role_id))
         );
