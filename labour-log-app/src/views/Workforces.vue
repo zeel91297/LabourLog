@@ -96,22 +96,22 @@
 </template>
 
 <script>
-import WorkForce from "@/components/WorkForce.vue";
-import workforceService from "../services/workforceService.js";
-import jobRolesServices from "../services/jobRolesServices.js";
-import sourcesServices from "../services/sourcesServices";
-import clientsServices from "../services/clientsServices";
+import WorkForce from '@/components/WorkForce.vue'
+import workforceService from '../services/workforceService.js'
+import jobRolesServices from '../services/jobRolesServices.js'
+import sourcesServices from '../services/sourcesServices'
+import clientsServices from '../services/clientsServices'
 
 export default {
   components: {
     WorkForce
   },
-  data() {
+  data () {
     return {
       drawer: true,
       items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
+        { title: 'Home', icon: 'dashboard' },
+        { title: 'About', icon: 'question_answer' }
       ],
       right: null,
       workforceData: [],
@@ -121,77 +121,77 @@ export default {
       selectedSource: null,
       clientsData: [],
       selectedClients: [],
-      search: "",
+      search: '',
       switchRate: false
-    };
+    }
   },
-  created() {
-    this.getAllWorkforce();
+  created () {
+    this.getAllWorkforce()
 
     jobRolesServices
       .getAllJobRoles()
       .then(result => {
-        this.jobRolesData = result.data;
+        this.jobRolesData = result.data
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
     sourcesServices
       .getAllSources()
       .then(result => {
-        this.sourcesData = result.data;
+        this.sourcesData = result.data
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.log(err)
+      })
 
     clientsServices
       .getAllClients()
       .then(result => {
-        this.clientsData = result.data;
+        this.clientsData = result.data
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.log(err)
+      })
   },
   methods: {
-    checkButton() {
-      console.log("hello");
+    checkButton () {
+      console.log('hello')
     },
-    getAllWorkforce() {
+    getAllWorkforce () {
       workforceService
         .getAllWorkforceSourceJob()
         .then(result => {
-          this.workforceData = result.data;
-          //console.log(this.workforceData);
+          this.workforceData = result.data
+          // console.log(this.workforceData);
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     },
-    clearAllFilter() {
-      this.selectedJobRole = [];
-      this.selectedSource = null;
-      this.selectedClients = [];
-      this.switchRate = false;
-      this.getAllWorkforce();
+    clearAllFilter () {
+      this.selectedJobRole = []
+      this.selectedSource = null
+      this.selectedClients = []
+      this.switchRate = false
+      this.getAllWorkforce()
     },
-    checkSwitchValue() {
+    checkSwitchValue () {
       if (this.switchRate) {
-        //this.getAllWorkforce();
-        //this.switchRate = false;
+        // this.getAllWorkforce();
+        // this.switchRate = false;
       } else {
-        this.switchRate = true;
+        this.switchRate = true
         this.workforceData.sort(
           (a, b) => parseFloat(a.workforce_rate) - parseFloat(b.workforce_rate)
-        );
-        console.log(this.switchRate);
+        )
+        console.log(this.switchRate)
       }
     }
   },
   computed: {
-    searchdWorkForce() {
+    searchdWorkForce () {
       return this.workforceData.filter(item => {
         return (
           (this.search.length === 0 ||
@@ -202,8 +202,8 @@ export default {
             this.selectedSource === item.source_id) &&
           (this.selectedJobRole.length === 0 ||
             this.selectedJobRole.includes(item.job_role_id))
-        );
-      });
+        )
+      })
       /* .sort((a, b) => {
           return a[this.sortBy]
             .toString()
@@ -211,7 +211,7 @@ export default {
         }); */
     }
   }
-};
+}
 </script>
 
 <style>
