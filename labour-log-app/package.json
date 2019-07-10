@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@syncfusion/ej2-vue-calendars": "^17.1.51",
+    "mdbvue": "^5.6.0",
     "register-service-worker": "^1.6.2",
     "v-calendar": "^1.0.0-beta.14",
     "vue": "^2.6.10",

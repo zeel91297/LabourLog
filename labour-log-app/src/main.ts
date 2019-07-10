@@ -9,8 +9,6 @@ import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
 import VueResource from 'vue-resource'
 
-import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
-
 import { CalendarPlugin } from '@syncfusion/ej2-vue-calendars'
 
 Vue.config.productionTip = false
