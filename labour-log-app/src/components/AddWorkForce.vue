@@ -51,13 +51,6 @@
                     <mdb-icon  icon="dollar-sign" />
             </td>
             <td style="padding-top: 25px;">
-                                <kendo-combobox :data-source="ratePerDay"
-                                label="Rate Per Day"
-                                required
-                                placeholder="Rate Per Day"
-                                    :filter="'contains'"
-                                    :index="0" style="width:100%;">
-                                 </kendo-combobox>
 
             </td>
           </tr>
@@ -191,6 +184,14 @@ export default {
       'ABC',
       'XYZ',
       'PQR'
+    ],
+    selected: null,
+    options: [
+      { value: null, text: 'Please select an option' },
+      { value: 'a', text: 'This is First option' },
+      { value: 'b', text: 'Selected Option' },
+      { value: { C: '3PO' }, text: 'This is an option with object value' },
+      { value: 'd', text: 'This one is disabled', disabled: true }
     ]
   }),
 

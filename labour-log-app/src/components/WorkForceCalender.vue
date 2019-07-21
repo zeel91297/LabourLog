@@ -1,5 +1,5 @@
 <template>
-  <div class="wrap">
+  <div class="wrap" >
     <h2 class="pink--text font-weight-bold text-xs-left">Attendance Calendar</h2>
     <ejs-calendar
       id="calendar"
@@ -8,7 +8,7 @@
       @click="onCreate"
       :change="onCreate"
     ></ejs-calendar>
-    <v-dialog v-model="dialog" width="500">
+    <v-dialog v-model="dialog" width="400">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>Privacy Policy</v-card-title>
 
@@ -45,13 +45,14 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-buttons/styles/material.css";
 @import "../../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
 
-/* .wrap {
+.wrap {
   margin: 35px auto;
-  width: 240px;
-} */
+  width: 440px;
+  height: 300px;
+}
 </style>

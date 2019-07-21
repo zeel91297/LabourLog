@@ -5,6 +5,7 @@ import Home from './views/Home.vue'
 import Sources from './views/Sources.vue'
 import WorkForces from './views/Workforces.vue'
 import Clients from './views/Clients.vue'
+import generateClientInvoice from './views/generateClientInvoice.vue'
 
 Vue.use(Router)
 
@@ -39,6 +40,13 @@ export default new Router({
       path: '/clients',
       name: 'clients',
       component: Clients
+
+    },
+    {
+      path: '/generateClientInvoice/:id',
+      name: 'generateClientInvoice',
+      component: generateClientInvoice
+      // generateClientInvoice
     }
   ]
 })

@@ -4,6 +4,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import './registerServiceWorker'
+import axios from 'axios'
 
 import 'vuetify/dist/vuetify.min.css' // Ensure you are using css-loader
 
@@ -14,6 +15,8 @@ import { CalendarPlugin } from '@syncfusion/ej2-vue-calendars'
 Vue.config.productionTip = false
 
 // index.js or main.js
+
+Vue.prototype.$http = axios
 
 Vue.use(Vuetify)
 Vue.use(CalendarPlugin)

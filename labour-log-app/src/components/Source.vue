@@ -17,9 +17,9 @@
                 <v-flex xs7>
                   <v-card-title primary-title>
                     <div>
-                      <div class="Name">MICROSOFT</div>
-                      <div class="mobileno">9558907359</div>
-                      <div class="email">dhrumildshah1998@gmail.com</div>
+                      <div class="Name">{{sourceObj.source_name}}</div>
+                      <div class="mobileno">{{sourceObj.source_contact}}</div>
+                      <div class="email">{{sourceObj.source_email}}</div>
                       <div class="no of workers">no of worker : 10</div>
                       <div class="no of not assign workers">no of not assign workers : 10</div>
                     </div>
@@ -47,6 +47,12 @@ const avatars = [
 const pause = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 export default {
+  props: {
+    sourceObj: {
+      type: Object,
+      required: true
+    }
+  },
   data () {
     return {
       active: [],
