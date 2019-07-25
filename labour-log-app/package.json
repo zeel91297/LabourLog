@@ -10,17 +10,24 @@
   },
   "dependencies": {
     "@syncfusion/ej2-vue-calendars": "^17.1.51",
+    "exceljs": "^1.13.0",
+    "jquery": "^3.4.1",
     "mdbvue": "^5.6.0",
+    "node-xlsx": "^0.15.0",
     "register-service-worker": "^1.6.2",
     "v-calendar": "^1.0.0-beta.14",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",
+    "vue-dynamic-dropdown": "^1.0.11",
+    "vue-jquery": "^1.0.6",
+    "vue-json-excel": "^0.2.98",
     "vue-property-decorator": "^8.1.0",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.3",
     "vuelidate": "^0.7.4",
     "vuetify": "^1.5.16",
-    "vuex": "^3.0.1"
+    "vuex": "^3.0.1",
+    "xlsx": "^0.14.4"
   },
   "devDependencies": {
     "@types/chai": "^4.1.0",
@@ -35,11 +42,17 @@
     "@vue/test-utils": "1.0.0-beta.29",
     "babel-eslint": "^10.0.1",
     "chai": "^4.1.2",
+    "css-loader": "^3.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "expose-loader": "^0.7.5",
     "lint-staged": "^8.1.5",
+    "node-sass": "^4.12.0",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
     "typescript": "^3.4.3",
-    "vue-template-compiler": "^2.6.10"
+    "vue-template-compiler": "^2.6.10",
+    "webpack": "^4.35.3"
   },
   "eslintConfig": {
     "root": true,

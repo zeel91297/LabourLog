@@ -2,98 +2,102 @@
 
   <div class="settings" id="wrapper">
 
-      <div id="app" v-on:click="seen = !seen" class="control" style="position:fixed;top:0;"  @click="scrollToTop">
-        <v-btn color="pink" dark absolute top right fab style="margin-top:120px;top: 0;right:0;position:fixed;width:50px;height:50px;;margin-right:10px;"  >
+          <div id="app" v-on:click="seen = !seen" class="control" style="position:fixed;top:0;"  @click="scrollToTop">
+            <!-- <v-btn color="pink" dark absolute top right fab style="margin-top:120px;top: 0;right:0;position:fixed;width:50px;height:50px;;margin-right:10px;"  >
 
-          <v-icon>add</v-icon>
+              <v-icon>add</v-icon>
 
-        </v-btn>
-      </div>
+            </v-btn> -->
+            <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px">
+                <v-icon>add</v-icon>
+            </v-btn>
+          </div>
 
-      <div v-if="seen" id="hide">
-      <form>
-        <table width="100%">
-          <tr>
-            <td>
-                <mdb-icon  icon="hotel" />
-            </td>
-            <td>
-                   <v-text-field
-                    v-model="name"
-                    :error-messages="nameErrors"
-                    :counter="10"
-                    label="Name"
-                    required
-                    @input="$v.name.$touch()"
-                    @blur="$v.name.$touch()"
-                  ></v-text-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                    <!-- <v-icon large color="teal darken-2">email</v-icon> -->
-                    <mdb-icon far icon="envelope" />
-            </td>
-            <td>
-                    <v-text-field
-                    v-model="email"
-                    :error-messages="emailErrors"
-                    label="E-mail"
-                    required
-                    @input="$v.email.$touch()"
-                    @blur="$v.email.$touch()"
-                  ></v-text-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
-                    <mdb-icon  icon="mobile-alt" />
-            </td>
-            <td>
-                    <v-text-field
-                      v-model="contactno"
-                      :error-messages="contactErrors"
-                      :counter="10"
-                      label="Contact Number"
-                      required
-                      @input="$v.contactno.$touch()"
-                      @blur="$v.contactno.$touch()"
-                    ></v-text-field>
-            </td>
-          </tr>
-          <tr>
-            <td>
+          <div v-if="seen" id="hide">
+                  <form v-on:submit.prevent="addNewClient">
+                          <table width="100%">
+                            <tr>
+                              <td>
+                                  <mdb-icon  icon="hotel" />
 
-            </td>
-            <td>
-                   <v-checkbox
-                    v-model="checkbox"
-                    :error-messages="checkboxErrors"
-                    label="Do you agree?"
-                    required
-                    @change="$v.checkbox.$touch()"
-                    @blur="$v.checkbox.$touch()"
-                  ></v-checkbox>
-            </td>
+                              </td>
+                              <td>
+                                    <v-text-field
+                                      v-model="inputName"
+                                      :error-messages="nameErrors"
+                                      :counter="10"
+                                      label="Name"
+                                      required
+                                      @input="$v.name.$touch()"
+                                      @blur="$v.name.$touch()"
+                                    ></v-text-field>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                      <!-- <v-icon large color="teal darken-2">email</v-icon> -->
+                                      <mdb-icon far icon="envelope" />
+                              </td>
+                              <td>
+                                      <v-text-field
+                                      v-model="inputEmail"
+                                      :error-messages="emailErrors"
+                                      label="E-mail"
+                                      required
+                                      @input="$v.email.$touch()"
+                                      @blur="$v.email.$touch()"
+                                    ></v-text-field>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                      <mdb-icon  icon="mobile-alt" />
+                              </td>
+                              <td>
+                                      <v-text-field
+                                        v-model="inputContactno"
+                                        :error-messages="contactErrors"
+                                        :counter="10"
+                                        label="Contact Number"
+                                        required
+                                        @input="$v.contactno.$touch()"
+                                        @blur="$v.contactno.$touch()"
+                                      ></v-text-field>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
 
-          </tr>
-        </table>
+                              </td>
+                              <td>
+                                    <v-checkbox
+                                      v-model="checkbox"
+                                      :error-messages="checkboxErrors"
+                                      label="Do you agree?"
+                                      required
+                                      @change="$v.checkbox.$touch()"
+                                      @blur="$v.checkbox.$touch()"
+                                    ></v-checkbox>
+                              </td>
 
-      <!-- <v-select
-        v-model="select"
-        :items="items"
-        :error-messages="selectErrors"
-        label="Item"
-        required
-        @change="$v.select.$touch()"
-        @blur="$v.select.$touch()"
-      ></v-select> -->
+                            </tr>
+                          </table>
 
-       <v-btn color="success" @click="submit">ADD</v-btn>
-      <v-btn color="warning" @click="clear">clear</v-btn>
-    </form>
+                                <!-- <v-select
+                                  v-model="select"
+                                  :items="items"
+                                  :error-messages="selectErrors"
+                                  label="Item"
+                                  required
+                                  @change="$v.select.$touch()"
+                                  @blur="$v.select.$touch()"
+                                ></v-select> -->
 
-      </div>
+                        <v-btn color="success" @click="submit">ADD</v-btn>
+                        <v-btn color="warning" @click="clear">clear</v-btn>
+                </form>
+
+          </div>
 
       </div>
 
@@ -108,7 +112,7 @@ export default {
   components: {
     mdbIcon
   },
-  el: '#wrapper',
+  // el: '#wrapper',
   mixins: [validationMixin],
 
   validations: {
@@ -188,6 +192,11 @@ export default {
     },
     scrollToTop () {
       window.scrollTo(0, 0)
+    },
+    addNewClient () {
+      console.log('name', this, inputName)
+      console.log('name', this, inputContactno)
+      console.log('name', this, inputEmail)
     }
   }
 }

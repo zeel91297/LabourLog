@@ -102,6 +102,7 @@
         required
         @change="$v.select.$touch()"
         @blur="$v.select.$touch()"
+
         ></v-select>-->
 
         <v-btn color="success" @click="submit">ADD</v-btn>

@@ -2,7 +2,16 @@
   <div>
     <v-spacer></v-spacer>
     <h1>List of Sources</h1>
-
+    <v-spacer></v-spacer>
+    <v-text-field
+      class="mx-5"
+      flat
+      label="Search"
+      prepend-inner-icon="search"
+      solo-inverted
+      clearable
+      v-model="search"
+    ></v-text-field>
    <v-btn
       dark
       color="black"
@@ -44,8 +53,8 @@
     </v-navigation-drawer>
      <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
-        <v-flex md6 sm12 v-for="i in 10" :key="`6${i}`">
-          <Source/>
+        <v-flex md6 sm12 v-for="sourceData in searchdWorkForce" :key="sourceData.source_id">
+          <Source :sourceObj="sourceData"/>
         </v-flex>
       </v-layout>
     </v-container>
@@ -54,6 +63,8 @@
 
 <script>
 import Source from '@/components/Source.vue'
+import sourcesServices from '../services/sourcesServices'
+
 export default {
   components: {
     Source
@@ -65,12 +76,44 @@ export default {
         { title: 'Home', icon: 'dashboard' },
         { title: 'About', icon: 'question_answer' }
       ],
-      right: null
+      right: null,
+      sourcesData: [],
+      search: ''
     }
+  },
+  created () {
+    sourcesServices
+      .getAllSources()
+      .then(result => {
+        this.sourcesData = result.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
   },
   methods: {
     checkButton () {
       console.log('hello')
+    }
+  },
+  computed: {
+    searchdWorkForce () {
+      return this.sourcesData.filter(item => {
+        return (
+          this.search.length === 0 ||
+          item.source_name.toLowerCase().includes(this.search.toLowerCase())
+          //      &&
+          // (this.selectedSource === null ||
+          //   this.selectedSource === item.source_id) &&
+          // (this.selectedJobRole.length === 0 ||
+          //   this.selectedJobRole.includes(item.job_role_id))
+        )
+      })
+      /* .sort((a, b) => {
+          return a[this.sortBy]
+            .toString()
+            .localeCompare(b[this.sortBy].toString());
+        }); */
     }
   }
 }
