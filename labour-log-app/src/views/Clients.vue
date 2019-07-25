@@ -223,25 +223,6 @@ export default {
     };
   },
   created() {
-    // this.getAllClients()
-
-    // jobRolesServices
-    //   .getAllJobRoles()
-    //   .then(result => {
-    //     this.jobRolesData = result.data
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
-
-    // sourcesServices
-    //   .getAllSources()
-    //   .then(result => {
-    //     this.sourcesData = result.data
-    //   })
-    //   .catch(err => {
-    //     console.log(err)
-    //   })
     this.callALLClients();
   },
   mounted() {},

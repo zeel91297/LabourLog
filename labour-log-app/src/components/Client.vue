@@ -50,7 +50,7 @@
                       dark
                       window.location.href=this.$router.push('workforces')
                     >GENERATE INVOICE</v-btn> -->
-                    <a :href="/generateClientInvoice/+clientObj.client_id">generate invoice</a>
+                    <a :href="/invoiceDateSelect/+clientObj.client_id">generate invoice</a>
                   <!-- </div> -->
                 </td>
                 <td style="text-align:left"></td>
