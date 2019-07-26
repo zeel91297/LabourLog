@@ -79,7 +79,7 @@
 export default {
   components: {},
 
-  data() {
+  data () {
     return {
       myid: this.$route.params.id,
       date1: new Date().toISOString().substr(0, 10),
@@ -89,27 +89,27 @@ export default {
       menu1: false,
       menu2: false,
       loader: null,
-      loading3: false,
- 
-    };
+      loading3: false
+
+    }
   },
   watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
 
-      setTimeout(() => (this[l] = false), 3000);
+      setTimeout(() => (this[l] = false), 3000)
 
-      this.loader = null;
+      this.loader = null
     }
   },
   methods: {
-    date1Print() {
+    date1Print () {
       // alert('date : '+this.date1);
-   
+
     }
   }
-};
+}
 </script>
 
 <style>

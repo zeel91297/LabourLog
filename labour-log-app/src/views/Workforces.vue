@@ -193,7 +193,7 @@
         label="Select Client"
         item-text="client_name"
         menu-props="bottom"
-        
+
         attach
         chips
         multiple
@@ -215,7 +215,7 @@
         </v-flex>
       </v-layout>
     </v-container>
-          
+
     <div
       id="app"
       v-on:click="seen = !seen"
@@ -269,7 +269,7 @@ export default {
   },
   data() {
     return {
-      drawer: true,
+      drawer: false,
       items: [
         { title: "Home", icon: "dashboard" },
         { title: "About", icon: "question_answer" }
@@ -305,7 +305,7 @@ export default {
     };
   },
   created() {
-   
+
     this.getAllWorkforce();
 
     jobRolesServices
@@ -336,7 +336,7 @@ export default {
       });
   },
   methods: {
-   
+
     checkButton() {
       console.log("hello");
     },

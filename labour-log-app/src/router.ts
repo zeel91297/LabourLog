@@ -46,13 +46,13 @@ export default new Router({
       path: '/invoiceDateSelect/:id',
       name: 'invoiceDateSelect',
       component: ClientInvoiceDateSelect
-    
+
     },
     {
       path: '/ClientInvoice/:id',
       name: 'ClientInvoice',
       component: ClientInvoice
-    
+
     }
   ]
 })

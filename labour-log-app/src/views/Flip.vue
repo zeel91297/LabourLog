@@ -13,11 +13,21 @@
               <v-flex d-flex text-xs-center>
                 <v-scroll-y-transition mode="out-in">
                   <v-card class="pt-4 mx-auto" flat max-width="400">
-                    <v-btn fab absolute top right flat icon color="red" style="margin-right:-48px">
+                    <v-btn
+                      @click="editWorkforce"
+                      fab
+                      absolute
+                      top
+                      right
+                      flat
+                      icon
+                      color="red"
+                      style="margin-right:-48px"
+                    >
                       <v-icon>delete_sweep</v-icon>
                     </v-btn>
-
                     <v-btn
+                      @click="deleteWorkforce"
                       fab
                       absolute
                       top
@@ -57,11 +67,13 @@
           </v-card>
         </div>
         <div class="card__back">
-          <WorkForceCalender></WorkForceCalender>
+          <WorkForceCalender :workForceObj="workForceObj"></WorkForceCalender>
         </div>
       </div>
     </div>
-    <button @click="flip(workForceObj.workforce_id)" id="laborLog" style class="front_btn">flip</button>
+    <button @click="flip(workForceObj.workforce_id)" id="laborLog" class="front_btn">
+      <i class="material-icons">cached</i>
+    </button>
   </section>
 
   <!-- </div> -->
@@ -138,12 +150,12 @@ export default {
   },
   methods: {
     flip(workforcsID) {
-      console.log(" workforcsID id got :", workforcsID);
+      /* console.log(" workforcsID id got :", workforcsID); */
 
       var currentFlipBtnId;
       $("button").each(function() {
         var i = $(this).attr("id");
-        console.log("currentFlipBtnId :" + i);
+        /* console.log("currentFlipBtnId :" + i); */
         currentFlipBtnId = i;
         if (i) return false;
       });
@@ -155,12 +167,18 @@ export default {
       var ans;
       $("button").each(function() {
         var i = $(this).attr("id");
-        console.log("changedId :::::" + i);
+        /* console.log("changedId :::::" + i); */
         ans = i;
         if (i) return false;
       });
-      console.log(workforcsID + " ->" + ans);
+      /* console.log(workforcsID + " ->" + ans); */
       if (workforcsID == ans) $(".card-" + ans).toggleClass("flipped");
+    },
+    editWorkforce() {
+      console.log("edit");
+    },
+    deleteWorkforce() {
+      console.log("delete");
     }
   },
   async fetchUsers(item) {
@@ -182,11 +200,12 @@ export default {
 <style  scoped>
 .front_btn {
   color: black;
-  font-size: 20px;
-  background-color: rgb(43, 226, 52);
+  font-size: 10px;
+  /* background-color: rgb(43, 226, 52); */
   /* height: 50px; */
   border: 1px solid;
-  width: 100px;
+  width: 50px;
+  border: #ccc 0px solid;
 
   /* margin-right: 150px; */
   top: 10px;
