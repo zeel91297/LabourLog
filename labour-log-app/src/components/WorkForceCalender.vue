@@ -7,6 +7,20 @@
         <v-card-title class="headline grey lighten-2" primary-title>Working Details</v-card-title>
         <v-card-text>
           <v-container grid-list-md>
+            <!-- <v-flex xs12 sm6>
+              <v-text-field
+                v-model="dd"
+                label="Date (read only text field)"
+                hint="MM/DD/YYYY format"
+                persistent-hint
+                prepend-icon="event"
+                readonly
+                v-on="on"
+              ></v-text-field>
+            </v-flex>-->
+            <v-flex xs12 sm12>
+              <v-text-field name="name" label="Date" v-model="dd" readonly prepend-icon="event"></v-text-field>
+            </v-flex>
             <v-flex xs12 sm6>
               <v-select
                 v-model="selectedClient"
@@ -36,9 +50,9 @@
 </template>
 
 <script>
-import clientsServices from '../services/clientsServices'
+import clientsServices from "../services/clientsServices";
 export default {
-  data () {
+  data() {
     return {
       isMultiSelection: true,
       // dd: new Date("1/1/2019"),
@@ -47,7 +61,7 @@ export default {
       clientsData: [],
       selectedClient: null,
       work_hours: 0
-    }
+    };
   },
   props: {
     workForceObj: {
@@ -55,41 +69,45 @@ export default {
       required: true
     }
   },
-  created () {
+  created() {
     //  this.getDate();
     clientsServices
       .getAllClients()
       .then(result => {
-        this.clientsData = result.data
+        this.clientsData = result.data;
       })
       .catch(err => {
-        console.log(err)
-      })
+        console.log(err);
+      });
   },
   methods: {
-    getDate () {
+    getDate() {
       // console.log('-> '+this.dd)
     },
-    onCreate: function (args) {
-      let calendarObj = this.$refs.CalendarInstance
+    onCreate: function(args) {
+      let calendarObj = this.$refs.CalendarInstance;
       /* console.log(calendarObj.value); */
       // this.dd=calendarObj.value
-      console.log(this.dd + ' date')
-      console.log(this.selectedClient)
-      this.dialog = true
+      console.log(this.dd + " date");
+      console.log(this.selectedClient);
+      this.dialog = true;
       // this.getDate();
     },
-    resetForm () {},
-    submitForm () {
+    resetForm() {},
+    submitForm() {
       var dFormat =
-        [this.dd.getUTCFullYear(), this.dd.getUTCMonth() + 1, this.dd.getUTCDate()].join(
-          '-'
-        ) +
-        ' ' +
-        [this.dd.getUTCHours(), this.dd.getUTCMinutes(), this.dd.getUTCSeconds()].join(
-          ':'
-        )
-      console.log(
+        [
+          this.dd.getUTCFullYear(),
+          this.dd.getUTCMonth() + 1,
+          this.dd.getUTCDate()
+        ].join("-") +
+        " " +
+        [
+          this.dd.getUTCHours(),
+          this.dd.getUTCMinutes(),
+          this.dd.getUTCSeconds()
+        ].join(":");
+      /* console.log(
         this.selectedClient +
           ' ' +
           this.workForceObj.workforce_id +
@@ -99,21 +117,21 @@ export default {
           this.work_hours +
           ' ' +
           dFormat
-      )
+      ) */
       this.$http
-        .post('http://localhost:3000/Workforcesworkingdetails', {
+        .post("http://localhost:3000/Workforcesworkingdetails", {
           client_id: this.selectedClient,
           workforce_id: this.workForceObj.workforce_id,
           work_date: dFormat,
           work_hours: this.work_hours
         })
         .then(res => {
-          console.log(res)
+          console.log(res);
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     }
   }
-}
+};
 </script>
 
 <style scoped>
