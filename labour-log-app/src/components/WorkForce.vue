@@ -187,9 +187,9 @@ export default {
   transform-style: preserve-3d;
 }
 
-.card:hover .card__content {
+/* .card:hover .card__content {
   transform: rotateY(0.5turn);
-}
+} */
 
 .card__front,
 .card__back {

@@ -15,7 +15,7 @@ var JobRolesRouter = require('./routes/jobroles_routes');
 var ClientRouter = require('./routes/client_routes');
 var ClientInvoiceGenerate = require('./routes/ClientInvoiceGenerate');
 var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_details_routes');
-
+var workForceCalenderDetailsByIdandDate = require('./routes/workforce_date_wise_record');
 var WorkforceSourceJob = require('./routes/workforceSourceRoutes');
 
 var app = express();
@@ -43,6 +43,7 @@ app.use('/Workforcesworkingdetails', WorkForcesWorkingDetailsRouter);
 app.use('/WorkforceSourceJob', WorkforceSourceJob);
 
 app.use('/ClientInvoiceGenerate',ClientInvoiceGenerate);
+app.use('/workForceCalenderDetailsByIdandDate',workForceCalenderDetailsByIdandDate);
 
 
 // catch 404 and forward to error handler
