@@ -61,7 +61,7 @@
         </div>
       </div>
     </div>
-    <button @click="flip(workForceObj.workforce_id)" id="laborLog" style class="front_btn">flip</button>
+    <button @click="flip(workForceObj.workforce_id)" id="laborLog" style class="front_btn"><v-icon> flip</v-icon></button>
   </section>
 
   <!-- </div> -->
