@@ -13,7 +13,7 @@ import VueResource from 'vue-resource'
 import { CalendarPlugin } from '@syncfusion/ej2-vue-calendars'
 
 import JsonExcel from 'vue-json-excel'
- 
+
 Vue.component('downloadExcel', JsonExcel)
 
 Vue.config.productionTip = false

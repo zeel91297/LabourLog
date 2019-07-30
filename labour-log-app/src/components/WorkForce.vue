@@ -7,12 +7,32 @@
             <v-flex d-flex text-xs-center>
               <v-scroll-y-transition mode="out-in">
                 <v-card class="pt-4 mx-auto" flat max-width="400">
-                  <v-btn fab absolute top right flat icon color="red" style="margin-right:-48px">
+                  <!-- <v-btn
+                    @click="editWorkForce"
+                    fab
+                    absolute
+                    top
+                    right
+                    flat
+                    icon
+                    color="red"
+                    style="margin-right:-48px"
+                  >
                     <v-icon>delete_sweep</v-icon>
                   </v-btn>
-                  <v-btn fab absolute top right flat icon color="green" style="margin-right:-25px">
+                  <v-btn
+                    @click="deleteWorkforce"
+                    fab
+                    absolute
+                    top
+                    right
+                    flat
+                    icon
+                    color="green"
+                    style="margin-right:-25px"
+                  >
                     <v-icon>edit</v-icon>
-                  </v-btn>
+                  </v-btn> -->
                   <v-card-text>
                     <v-avatar size="88">
                       <!-- src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light" -->
@@ -116,6 +136,12 @@ export default {
     },
     randomAvatar () {
       this.avatar = avatars[Math.floor(Math.random() * avatars.length)]
+    },
+    editWorkforce () {
+      alert('edit')
+    },
+    deleteWorkforce () {
+      alert('delete')
     }
   }
 }
