@@ -40,7 +40,7 @@
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="warning" flat @click="resetForm">Clear</v-btn>
+          <v-btn color="warning" flat :disabled="isDataFlag==1" @click="resetForm">Clear</v-btn>
           <v-btn color="success" flat @click="submitForm">Save</v-btn>
           <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
         </v-card-actions>
@@ -60,7 +60,9 @@ export default {
       dialog: false,
       clientsData: [],
       selectedClient: null,
-      work_hours: 0
+      work_hours: 0,
+      getWorkDetails: [],
+      isDataFlag: false
     };
   },
   props: {
@@ -88,36 +90,61 @@ export default {
       let calendarObj = this.$refs.CalendarInstance;
       /* console.log(calendarObj.value); */
       // this.dd=calendarObj.value
-      console.log(this.dd + " date");
-      console.log(this.selectedClient);
+      /* console.log(this.dd + " date"); */
+      /* console.log(this.selectedClient); */
       this.dialog = true;
-      // this.getDate();
-    },
-    resetForm() {},
-    submitForm() {
-      var dFormat =
-        [
-          this.dd.getUTCFullYear(),
-          this.dd.getUTCMonth() + 1,
-          this.dd.getUTCDate()
-        ].join("-") +
+      var dFormat = [
+        this.dd.getUTCFullYear(),
+        this.dd.getUTCMonth() + 1,
+        this.dd.getUTCDate()
+      ].join("-");
+      /* +
         " " +
         [
           this.dd.getUTCHours(),
           this.dd.getUTCMinutes(),
           this.dd.getUTCSeconds()
-        ].join(":");
-      /* console.log(
-        this.selectedClient +
-          ' ' +
-          this.workForceObj.workforce_id +
-          ' ' +
-          this.dd +
-          ' ' +
-          this.work_hours +
-          ' ' +
-          dFormat
-      ) */
+        ].join(":"); */
+      console.log("sending dFormat " + dFormat);
+      this.$http
+        .post("http://localhost:3000/workForceCalenderDetailsByIdandDate/", {
+          workforce_id: this.workForceObj.workforce_id,
+          work_date: dFormat
+        })
+        .then(res => {
+          this.getWorkDetails = res.data;
+          console.log(this.getWorkDetails);
+          if (this.getWorkDetails.length == 1) {
+            console.log(this.getWorkDetails);
+            this.selectedClient = this.getWorkDetails[0].client_id;
+            this.work_hours = this.getWorkDetails[0].work_hours;
+            this.isDataFlag = true;
+          } else {
+            this.selectedClient = null;
+            this.work_hours = 0;
+            this.isDataFlag = false;
+          }
+        })
+        .catch(err => console.log(err));
+    },
+    resetForm() {
+      this.selectedClient = null;
+      this.work_hours = 0;
+    },
+    submitForm() {
+      var dFormat = [
+        this.dd.getUTCFullYear(),
+        this.dd.getUTCMonth() + 1,
+        this.dd.getUTCDate()
+      ].join(
+        "-"
+      ); /* +
+        " " +
+        [
+          this.dd.getUTCHours(),
+          this.dd.getUTCMinutes(),
+          this.dd.getUTCSeconds()
+        ].join(":"); */
       this.$http
         .post("http://localhost:3000/Workforcesworkingdetails", {
           client_id: this.selectedClient,
@@ -126,7 +153,9 @@ export default {
           work_hours: this.work_hours
         })
         .then(res => {
-          console.log(res);
+          /* console.log(res); */
+          this.selectedClient = null;
+          this.work_hours = 0;
         })
         .catch(err => console.log(err));
     }
