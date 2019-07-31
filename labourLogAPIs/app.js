@@ -17,7 +17,7 @@ var ClientInvoiceGenerate = require('./routes/ClientInvoiceGenerate');
 var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_details_routes');
 var workForceCalenderDetailsByIdandDate = require('./routes/workforce_date_wise_record');
 var WorkforceSourceJob = require('./routes/workforceSourceRoutes');
-
+var WorkForceWorkUpdate = require('./routes/WorkForceWorkUpdate');
 var app = express();
 
 // view engine setup
@@ -44,6 +44,7 @@ app.use('/WorkforceSourceJob', WorkforceSourceJob);
 
 app.use('/ClientInvoiceGenerate',ClientInvoiceGenerate);
 app.use('/workForceCalenderDetailsByIdandDate',workForceCalenderDetailsByIdandDate);
+app.use('/WorkForceWorkUpdate',WorkForceWorkUpdate);
 
 
 // catch 404 and forward to error handler
