@@ -1,23 +1,12 @@
 <template>
-  <div class="wrap">
+  <div class="wrap text-center">
     <h2 class="pink--text font-weight-bold text-xs-left">Attendance Calendar</h2>
     <ejs-calendar id="calendar" ref="CalendarInstance" v-model="dd" :change="onCreate"></ejs-calendar>
-    <v-dialog v-model="dialog" width="400">
+    <!-- <v-dialog v-model="dialog" width="400">
       <v-card>
         <v-card-title class="headline grey lighten-2" primary-title>Working Details</v-card-title>
         <v-card-text>
           <v-container grid-list-md>
-            <!-- <v-flex xs12 sm6>
-              <v-text-field
-                v-model="dd"
-                label="Date (read only text field)"
-                hint="MM/DD/YYYY format"
-                persistent-hint
-                prepend-icon="event"
-                readonly
-                v-on="on"
-              ></v-text-field>
-            </v-flex>-->
             <v-flex xs12 sm12>
               <v-text-field name="name" label="Date" v-model="dd" readonly prepend-icon="event"></v-text-field>
             </v-flex>
@@ -46,7 +35,38 @@
           <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
-    </v-dialog>
+    </v-dialog>-->
+
+    <!-- <h3 class="font-weight-bold purple--text text-xs-left" style="margin-left:55px">Working Details</h3> -->
+<!--     <v-btn color="primary" icon :disabled="isDataFlag==1" @click.native="resetForm()">
+      <v-icon>clear</v-icon>
+    </v-btn> -->
+    <v-container grid-list-md style="margin-top:-33px;">
+      <v-flex xs6 sm6 md6>
+        <v-select
+          v-model="selectedClient"
+          :items="clientsData"
+          label="Client"
+          item-text="client_name"
+          item-value="client_id"
+          required
+        ></v-select>
+      </v-flex>
+      <v-flex xs6 sm6 md6>
+        <v-text-field label="Hours Worked" v-model="work_hours" required></v-text-field>
+      </v-flex>
+      <v-flex align-start left style="margin-top:-30px;">
+        <v-btn color="primary" icon :disabled="isDataFlag==1" @click.native="resetForm()">
+          <v-icon>clear</v-icon>
+        </v-btn>
+        <v-btn color="warning" icon :disabled="isDataFlag==0" @click.native="updateForm()">
+          <v-icon>edit</v-icon>
+        </v-btn>
+        <v-btn color="success" icon :disabled="isDataFlag==1" @click.native="submitForm()">
+          <v-icon>save</v-icon>
+        </v-btn>
+      </v-flex>
+    </v-container>
   </div>
 </template>
 
@@ -115,7 +135,7 @@ export default {
         .then(res => {
           this.getWorkDetails = res.data;
           console.log(this.getWorkDetails);
-          if (this.getWorkDetails.length == 1) {
+          if (this.getWorkDetails.length === 1) {
             console.log(this.getWorkDetails);
             this.selectedClient = this.getWorkDetails[0].client_id;
             this.work_hours = this.getWorkDetails[0].work_hours;

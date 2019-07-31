@@ -118,16 +118,10 @@
         </form>
       </div>
     </div>
-    <v-container grid-list-md>
+    <v-container grid-list-md grid-list-sm>
       <v-layout wrap>
-        <v-flex md4 xs3>
-          <v-btn
-            dark
-            color="black"
-            @click.stop="drawer = !drawer"
-            class="left"
-            style="left:10px;margin-bottom:15px;position:absolute"
-          >
+        <v-flex md4 sm4>
+          <v-btn dark color="black" @click.stop="drawer = !drawer" class="left" align-start>
             <!-- style="margin-bottom:15px;position:fixed;left:10px;" -->
             <v-icon dark>tune</v-icon>Filters
           </v-btn>
@@ -191,7 +185,7 @@
             ></v-autocomplete>
           </v-navigation-drawer>
         </v-flex>
-        <v-flex xs9 md8 align-center style="max-width: 250px">
+        <v-flex md8 sm8>
           <v-text-field
             flat
             label="Search"
@@ -199,6 +193,7 @@
             solo-inverted
             clearable
             v-model="search"
+            align-end
           ></v-text-field>
         </v-flex>
       </v-layout>
@@ -209,8 +204,8 @@
       <v-icon>add</v-icon>
     </v-btn>-->
 
-    <v-container grid-list-md grid-list-sm>
-      <v-layout row wrap>
+    <v-container grid-list-md grid-list-sm fill-height>
+      <v-layout wrap>
         <v-flex
           md4
           lg4
@@ -218,6 +213,7 @@
           v-for="workData in searchdWorkForce"
           :key="workData.workforce_id"
           style="margin-bottom:140px;"
+          align-center
         >
           <!-- <WorkForce :workForceObj="workData"></WorkForce> -->
           <Flip :workForceObj="workData"></Flip>

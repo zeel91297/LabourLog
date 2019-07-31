@@ -215,9 +215,19 @@ export default {
   /* margin-right: -130px; */
   left: 70px;
 }
-.container {
+/* .container {
   width: 300px;
   height: 260px;
+  position: relative;
+  border: 0px solid #ccc;
+  -webkit-perspective: 800px;
+  -moz-perspective: 800px;
+  -o-perspective: 800px;
+  perspective: 800px;
+} */
+.container {
+  width: 300px;
+  height: 390px;
   position: relative;
   border: 0px solid #ccc;
   -webkit-perspective: 800px;
