@@ -3,15 +3,6 @@
     <v-spacer></v-spacer>
     <h1>List of WorkForces</h1>
     <v-spacer></v-spacer>
-    <v-text-field
-      class="mx-5"
-      flat
-      label="Search"
-      prepend-inner-icon="search"
-      solo-inverted
-      clearable
-      v-model="search"
-    ></v-text-field>
     <div class="settings" id="wrapper">
       <div v-if="seen" id="hide">
         <form>
@@ -127,80 +118,98 @@
         </form>
       </div>
     </div>
-    <v-btn
-      dark
-      color="black"
-      @click.stop="drawer = !drawer"
-      class="left"
-      style="margin-bottom:15px;position:fixed;left:0px;"
-    >
-      <v-icon dark>tune</v-icon>Filters
-    </v-btn>
+    <v-container grid-list-md>
+      <v-layout wrap>
+        <v-flex md4 xs3>
+          <v-btn
+            dark
+            color="black"
+            @click.stop="drawer = !drawer"
+            class="left"
+            style="left:10px;margin-bottom:15px;position:absolute"
+          >
+            <!-- style="margin-bottom:15px;position:fixed;left:10px;" -->
+            <v-icon dark>tune</v-icon>Filters
+          </v-btn>
+
+          <v-navigation-drawer v-model="drawer" temporary absolute>
+            <v-toolbar flat>
+              <v-list>
+                <v-list-tile>
+                  <v-list-tile-title class="title">Filters By:</v-list-tile-title>
+                  <v-btn color="teal" flat outline @click="clearAllFilter" dark>Clear All</v-btn>
+                  <v-btn flat icon color="black" @click.stop="drawer = !drawer">
+                    <v-icon>close</v-icon>
+                  </v-btn>
+                </v-list-tile>
+              </v-list>
+            </v-toolbar>
+
+            <v-switch
+              class="px-3"
+              color="success"
+              @click="checkSwitchValue"
+              label="Sort By Rate"
+              v-model="switchRate"
+            ></v-switch>
+
+            <v-divider></v-divider>
+            <v-subheader>By Sources</v-subheader>
+            <v-radio-group v-model="selectedSource" class="px-4">
+              <v-radio
+                v-for="source in sourcesData"
+                :key="source.source_id"
+                :label="source.source_name"
+                :value="source.source_id"
+              ></v-radio>
+            </v-radio-group>
+
+            <v-divider></v-divider>
+            <v-subheader>By Job Roles</v-subheader>
+            <v-container>
+              <v-checkbox
+                :label="jobRole.role_name"
+                v-model="selectedJobRole"
+                :value="jobRole.job_role_id"
+                class="caption"
+                v-for="jobRole in jobRolesData"
+                :key="jobRole.job_role_id"
+              ></v-checkbox>
+            </v-container>
+            <v-divider></v-divider>
+            <v-subheader>By Clients</v-subheader>
+            <v-autocomplete
+              :items="clientsData"
+              v-model="selectedClients"
+              label="Select Client"
+              item-text="client_name"
+              menu-props="bottom"
+              attach
+              chips
+              multiple
+              class="px-3"
+            ></v-autocomplete>
+          </v-navigation-drawer>
+        </v-flex>
+        <v-flex xs9 md8 align-center style="max-width: 250px">
+          <v-text-field
+            flat
+            label="Search"
+            prepend-inner-icon="search"
+            solo-inverted
+            clearable
+            v-model="search"
+          ></v-text-field>
+        </v-flex>
+      </v-layout>
+    </v-container>
+
     <!--
     <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px">
       <v-icon>add</v-icon>
     </v-btn>-->
 
-    <v-navigation-drawer v-model="drawer" absolute>
-      <v-toolbar flat>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-title class="title">Filters By:</v-list-tile-title>
-            <v-btn color="teal" flat outline @click="clearAllFilter" dark>Clear All</v-btn>
-            <v-btn flat icon color="black" @click.stop="drawer = !drawer">
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-list-tile>
-        </v-list>
-      </v-toolbar>
-
-      <v-switch
-        class="px-3"
-        color="success"
-        @click="checkSwitchValue"
-        label="Sort By Rate"
-        v-model="switchRate"
-      ></v-switch>
-
-      <v-divider></v-divider>
-      <v-subheader>By Sources</v-subheader>
-      <v-radio-group v-model="selectedSource" class="px-4">
-        <v-radio
-          v-for="source in sourcesData"
-          :key="source.source_id"
-          :label="source.source_name"
-          :value="source.source_id"
-        ></v-radio>
-      </v-radio-group>
-
-      <v-divider></v-divider>
-      <v-subheader>By Job Roles</v-subheader>
-      <v-container>
-        <v-checkbox
-          :label="jobRole.role_name"
-          v-model="selectedJobRole"
-          :value="jobRole.job_role_id"
-          class="caption"
-          v-for="jobRole in jobRolesData"
-          :key="jobRole.job_role_id"
-        ></v-checkbox>
-      </v-container>
-      <v-divider></v-divider>
-      <v-subheader>By Clients</v-subheader>
-      <v-autocomplete
-        :items="clientsData"
-        v-model="selectedClients"
-        label="Select Client"
-        item-text="client_name"
-        menu-props="bottom"
-
-        attach
-        chips
-        multiple
-        class="px-3"
-      ></v-autocomplete>
-    </v-navigation-drawer>
-    <v-container grid-list-md grid-list-sm style="margin-left:60px;">
+    <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
         <v-flex
           md4
@@ -305,7 +314,6 @@ export default {
     };
   },
   created() {
-
     this.getAllWorkforce();
 
     jobRolesServices
@@ -336,7 +344,6 @@ export default {
       });
   },
   methods: {
-
     checkButton() {
       console.log("hello");
     },
