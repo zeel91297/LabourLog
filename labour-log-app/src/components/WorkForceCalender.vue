@@ -2,45 +2,7 @@
   <div class="wrap text-center">
     <h2 class="pink--text font-weight-bold text-xs-left">Attendance Calendar</h2>
     <ejs-calendar id="calendar" ref="CalendarInstance" v-model="dd" :change="onCreate"></ejs-calendar>
-    <!-- <v-dialog v-model="dialog" width="400">
-      <v-card>
-        <v-card-title class="headline grey lighten-2" primary-title>Working Details</v-card-title>
-        <v-card-text>
-          <v-container grid-list-md>
-            <v-flex xs12 sm12>
-              <v-text-field name="name" label="Date" v-model="dd" readonly prepend-icon="event"></v-text-field>
-            </v-flex>
-            <v-flex xs12 sm6>
-              <v-select
-                v-model="selectedClient"
-                :items="clientsData"
-                label="Client"
-                item-text="client_name"
-                item-value="client_id"
-                required
-              ></v-select>
-            </v-flex>
-            <v-flex xs12 sm6>
-              <v-text-field label="Hours Worked" v-model="work_hours" required></v-text-field>
-            </v-flex>
-          </v-container>
-          <small>*indicates required field</small>
-        </v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn color="warning" flat :disabled="isDataFlag==1" @click="resetForm">Clear</v-btn>
-          <v-btn color="warning" flat :disabled="isDataFlag==0" @click="updateForm">Update</v-btn>
-          <v-btn color="success" flat :disabled="isDataFlag==1" @click="submitForm">Save</v-btn>
-          <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>-->
-
     <!-- <h3 class="font-weight-bold purple--text text-xs-left" style="margin-left:55px">Working Details</h3> -->
-<!--     <v-btn color="primary" icon :disabled="isDataFlag==1" @click.native="resetForm()">
-      <v-icon>clear</v-icon>
-    </v-btn> -->
     <v-container grid-list-md style="margin-top:-33px;">
       <v-flex xs6 sm6 md6>
         <v-select
@@ -66,6 +28,7 @@
           <v-icon>save</v-icon>
         </v-btn>
       </v-flex>
+      <v-snackbar v-model="snackbar" :timeout="timeout" bottom>{{message}}</v-snackbar>
     </v-container>
   </div>
 </template>
@@ -83,7 +46,10 @@ export default {
       selectedClient: null,
       work_hours: 0,
       getWorkDetails: [],
-      isDataFlag: false
+      isDataFlag: false,
+      snackbar: false,
+      message: "",
+      timeout: 1000
     };
   },
   props: {
@@ -102,31 +68,15 @@ export default {
       .catch(err => {
         console.log(err);
       });
+    this.getDetailsOfDateandWork();
   },
   methods: {
-    getDate() {
-      // console.log('-> '+this.dd)
-    },
-    onCreate: function(args) {
-      let calendarObj = this.$refs.CalendarInstance;
-      /* console.log(calendarObj.value); */
-      // this.dd=calendarObj.value
-      /* console.log(this.dd + " date"); */
-      /* console.log(this.selectedClient); */
-      this.dialog = true;
+    getDetailsOfDateandWork() {
       var dFormat = [
         this.dd.getUTCFullYear(),
         this.dd.getUTCMonth() + 1,
         this.dd.getUTCDate()
       ].join("-");
-      /* +
-        " " +
-        [
-          this.dd.getUTCHours(),
-          this.dd.getUTCMinutes(),
-          this.dd.getUTCSeconds()
-        ].join(":"); */
-      console.log("sending dFormat " + dFormat);
       this.$http
         .post("http://localhost:3000/workForceCalenderDetailsByIdandDate/", {
           workforce_id: this.workForceObj.workforce_id,
@@ -148,6 +98,28 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    onCreate: function(args) {
+      let calendarObj = this.$refs.CalendarInstance;
+      /* console.log(calendarObj.value); */
+      // this.dd=calendarObj.value
+      /* console.log(this.dd + " date"); */
+      /* console.log(this.selectedClient); */
+      this.dialog = true;
+      var dFormat = [
+        this.dd.getUTCFullYear(),
+        this.dd.getUTCMonth() + 1,
+        this.dd.getUTCDate()
+      ].join("-");
+      /* +
+        " " +
+        [
+          this.dd.getUTCHours(),
+          this.dd.getUTCMinutes(),
+          this.dd.getUTCSeconds()
+        ].join(":"); */
+      console.log("sending dFormat " + dFormat);
+      this.getDetailsOfDateandWork();
+    },
     resetForm() {
       this.selectedClient = null;
       this.work_hours = 0;
@@ -162,6 +134,8 @@ export default {
           })
           .then(result => {
             console.log(result);
+            this.message = "Details updated successfully!";
+            this.snackbar = true;
           })
           .catch(err => {
             console.log(err);
@@ -193,6 +167,8 @@ export default {
           /* console.log(res); */
           this.selectedClient = null;
           this.work_hours = 0;
+          this.message = "Details submitted successfully!";
+          this.snackbar = true;
         })
         .catch(err => console.log(err));
     }
