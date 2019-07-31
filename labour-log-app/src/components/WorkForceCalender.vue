@@ -41,7 +41,8 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="warning" flat :disabled="isDataFlag==1" @click="resetForm">Clear</v-btn>
-          <v-btn color="success" flat @click="submitForm">Save</v-btn>
+          <v-btn color="warning" flat :disabled="isDataFlag==0" @click="updateForm">Update</v-btn>
+          <v-btn color="success" flat :disabled="isDataFlag==1" @click="submitForm">Save</v-btn>
           <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
         </v-card-actions>
       </v-card>
@@ -130,6 +131,22 @@ export default {
     resetForm() {
       this.selectedClient = null;
       this.work_hours = 0;
+    },
+    updateForm() {
+      if (this.isDataFlag) {
+        this.$http
+          .put("http://localhost:3000/WorkForceWorkUpdate/", {
+            workforce_work_id: this.getWorkDetails[0].workforce_work_id,
+            client_id: this.selectedClient,
+            work_hours: this.work_hours
+          })
+          .then(result => {
+            console.log(result);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
     },
     submitForm() {
       var dFormat = [

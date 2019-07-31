@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var workforces_calender_working_details_update = require('../models/workforces_calender_working_details_update');
 
-router.post('/', function (req, res, next) {
+router.put('/', function (req, res, next) {
     console.log(req.body);
     workforces_calender_working_details_update.workforcesCalenderWorkingDetailsUpdateById(req.body, function (err, count) {
         if (err) {
