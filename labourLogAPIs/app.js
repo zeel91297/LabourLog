@@ -18,6 +18,9 @@ var WorkForcesWorkingDetailsRouter = require('./routes/work_forces_working_detai
 var workForceCalenderDetailsByIdandDate = require('./routes/workforce_date_wise_record');
 var WorkforceSourceJob = require('./routes/workforceSourceRoutes');
 var WorkForceWorkUpdate = require('./routes/WorkForceWorkUpdate');
+var clientNameUpdate = require('./routes/clientNameUpdate');
+var clientEmailIdUpdate = require('./routes/clientEmailIdUpdate');
+var clientContactNoUpdate = require('./routes/clientContactNoUpdate');
 var app = express();
 
 // view engine setup
@@ -34,17 +37,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/workforces', WorkForceRouter);
-app.use('/Sources',Sourcesrouter);
-app.use('/clientworkforce',Clientworkforce);
+app.use('/Sources', Sourcesrouter);
+app.use('/clientworkforce', Clientworkforce);
 app.use('/jobroles', JobRolesRouter);
 app.use('/clients', ClientRouter);
 // app.use('/workForceWorkingDetails', WorkForceWorkingDetailsRouter);
 app.use('/Workforcesworkingdetails', WorkForcesWorkingDetailsRouter);
 app.use('/WorkforceSourceJob', WorkforceSourceJob);
 
-app.use('/ClientInvoiceGenerate',ClientInvoiceGenerate);
-app.use('/workForceCalenderDetailsByIdandDate',workForceCalenderDetailsByIdandDate);
-app.use('/WorkForceWorkUpdate',WorkForceWorkUpdate);
+app.use('/ClientInvoiceGenerate', ClientInvoiceGenerate);
+app.use('/workForceCalenderDetailsByIdandDate', workForceCalenderDetailsByIdandDate);
+app.use('/WorkForceWorkUpdate', WorkForceWorkUpdate);
+app.use('/clientNameUpdate', clientNameUpdate);
+app.use('/clientEmailIdUpdate', clientEmailIdUpdate);
+app.use('/clientContactNoUpdate', clientContactNoUpdate);
 
 
 // catch 404 and forward to error handler
