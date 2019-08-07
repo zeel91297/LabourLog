@@ -1,24 +1,14 @@
 <template>
-  <div>
-    <h1>Zeel Modi</h1>
-  </div>
-  <!-- <NavBar></NavBar> -->
-  <!-- <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
-  </div>-->
+  <HelloWorld />
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-/* import HelloWorld from '@/components/HelloWorld.vue' // @ is an alias to /src
-import NavBar from '@/components/NavBar.vue' */
+import Vue from 'vue'
+import HelloWorld from '../components/HelloWorld.vue'
 
-@Component({
+export default Vue.extend({
   components: {
-    /* HelloWorld,
-    NavBar */
+    HelloWorld
   }
 })
-export default class Home extends Vue {}
 </script>

@@ -3,121 +3,6 @@
     <v-spacer></v-spacer>
     <h1>List of WorkForces</h1>
     <v-spacer></v-spacer>
-    <div class="settings" id="wrapper">
-      <div v-if="seen" id="hide">
-        <form>
-          <table width="100%">
-            <tr>
-              <td>
-                <mdb-icon icon="user" />
-              </td>
-              <td>
-                <v-text-field
-                  v-model="name"
-                  :error-messages="nameErrors"
-                  :counter="10"
-                  label="Name"
-                  required
-                  @input="$v.name.$touch()"
-                  @blur="$v.name.$touch()"
-                ></v-text-field>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <mdb-icon icon="mobile-alt" />
-              </td>
-              <td>
-                <v-text-field
-                  v-model="contactno"
-                  :error-messages="contactErrors"
-                  :counter="10"
-                  label="Contact Number"
-                  required
-                  @input="$v.contactno.$touch()"
-                  @blur="$v.contactno.$touch()"
-                ></v-text-field>
-              </td>
-            </tr>
-            <!-- <tr>
-              <td style="padding-top: 25px;">
-                <mdb-icon icon="dollar-sign" />
-              </td>
-              <td style="padding-top: 25px;">
-                <kendo-combobox
-                  :data-source="ratePerDay"
-                  label="Rate Per Day"
-                  required
-                  placeholder="Rate Per Day"
-                  :filter="'contains'"
-                  :index="0"
-                  style="width:100%;"
-                ></kendo-combobox>
-              </td>
-            </tr>-->
-            <!-- <tr>
-              <td style="padding-top: 25px;">
-                <mdb-icon icon="user-md" />
-              </td>
-              <td style="padding-top: 25px;">
-                <kendo-combobox
-                  :data-source="jobRole"
-                  label="Job Role"
-                  required
-                  placeholder="Job Role"
-                  :filter="'contains'"
-                  :index="0"
-                  style="width:100%;"
-                ></kendo-combobox>
-              </td>
-            </tr>-->
-            <!-- <tr>
-              <td style="padding-top: 25px;">
-                <mdb-icon icon="hotel" />
-              </td>
-              <td style="padding-top: 25px;">
-                <kendo-combobox
-                  :data-source="sources"
-                  label="Select Source"
-                  required
-                  placeholder="Select Source"
-                  :filter="'contains'"
-                  :index="0"
-                  style="width:100%;"
-                ></kendo-combobox>
-              </td>
-            </tr>-->
-            <tr>
-              <td></td>
-              <td>
-                <v-checkbox
-                  v-model="checkbox"
-                  :error-messages="checkboxErrors"
-                  label="Do you agree?"
-                  required
-                  @change="$v.checkbox.$touch()"
-                  @blur="$v.checkbox.$touch()"
-                ></v-checkbox>
-              </td>
-            </tr>
-          </table>
-
-          <!-- <v-select
-                                  v-model="select"
-                                  :items="items"
-                                  :error-messages="selectErrors"
-                                  label="Item"
-                                  required
-                                  @change="$v.select.$touch()"
-                                  @blur="$v.select.$touch()"
-          ></v-select>-->
-
-          <v-btn color="success" @click="submit">ADD</v-btn>
-          <v-btn color="warning" @click="clear">clear</v-btn>
-        </form>
-      </div>
-    </div>
     <v-container grid-list-md grid-list-sm>
       <v-layout wrap>
         <v-flex md4 sm4>
@@ -129,13 +14,13 @@
           <v-navigation-drawer v-model="drawer" temporary absolute>
             <v-toolbar flat>
               <v-list>
-                <v-list-tile>
-                  <v-list-tile-title class="title">Filters By:</v-list-tile-title>
-                  <v-btn color="teal" flat outline @click="clearAllFilter" dark>Clear All</v-btn>
-                  <v-btn flat icon color="black" @click.stop="drawer = !drawer">
+                <v-list-item-content>
+                  <v-list-item-title class="title">Filters By:</v-list-item-title>
+                  <v-btn color="teal" text outlined @click="clearAllFilter" dark>Clear All</v-btn>
+                  <v-btn text icon color="black" @click.stop="drawer = !drawer">
                     <v-icon>close</v-icon>
                   </v-btn>
-                </v-list-tile>
+                </v-list-item-content>
               </v-list>
             </v-toolbar>
 
@@ -199,16 +84,108 @@
       </v-layout>
     </v-container>
 
-    <!--
-    <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px">
-      <v-icon>add</v-icon>
-    </v-btn>-->
-
+    <v-layout justify-center>
+      <v-dialog v-model="dialog" persistent max-width="600px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Add new WorkForce</span>
+          </v-card-title>
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12 sm12 md12>
+                  <v-text-field
+                    label="WorkForce Name*"
+                    name="w_name"
+                    v-model="workforce_name"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="Contact No*"
+                    name="contact"
+                    v-model="workforce_contact"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="WorkForce Rate per Day*"
+                    type="number"
+                    name="rate"
+                    v-model="workforce_rate"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-select
+                    :items="jobRolesData"
+                    label="Job Role*"
+                    name="job_role"
+                    v-model="job_role_id"
+                    item-text="role_name"
+                    item-value="job_role_id"
+                    required
+                  ></v-select>
+                </v-flex>
+                <v-flex xs12 sm6>
+                  <v-autocomplete
+                    :items="sourcesData"
+                    label="Source"
+                    name="source"
+                    item-text="source_name"
+                    item-value="source_id"
+                    v-model="source_id"
+                  ></v-autocomplete>
+                </v-flex>
+                <v-flex xs12>
+                  <v-text-field
+                    label="WorkForce Bill Rate*"
+                    name="bill_rate"
+                    type="number"
+                    v-model="workforce_bill_rate"
+                    required
+                  ></v-text-field>
+                </v-flex>
+                <v-flex xs12 class="text-xs-center text-sm-center text-md-center text-lg-center">
+                  <img :src="imageUrl" height="150" v-if="imageUrl" />
+                  <v-text-field
+                    label="Select Image"
+                    @click="pickFile"
+                    v-model="imageName"
+                    prepend-icon="mdi-camera"
+                  ></v-text-field>
+                  <input
+                    type="file"
+                    style="display: none"
+                    ref="image"
+                    accept="image/*"
+                    @change="onFilePicked"
+                  />
+                </v-flex>
+              </v-layout>
+            </v-container>
+            <small>*indicates required field</small>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" text @click="dialog = false">Close</v-btn>
+            <v-btn color="blue darken-1" text @click="addNewWorkForce">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+        <v-progress-linear v-show="isLoading"></v-progress-linear>
+      </v-dialog>
+    </v-layout>
+    <v-snackbar bottom dark :timeout="snackTimeOut" v-model="snackBar">
+      {{snackBarText}}
+      <v-btn text color="pink" @click.native="snackBar = false">Close</v-btn>
+    </v-snackbar>
     <v-container grid-list-md grid-list-sm fill-height>
       <v-layout wrap>
         <v-flex
           md4
-          lg4
+          lg3
           sm12
           v-for="workData in searchdWorkForce"
           :key="workData.workforce_id"
@@ -223,7 +200,7 @@
 
     <div
       id="app"
-      v-on:click="seen = !seen"
+      v-on:click="dialog = !dialog"
       class="control"
       style="position:fixed;top:0;"
       @click="scrollToTop"
@@ -244,13 +221,7 @@ import workforceService from "../services/workforceService.js";
 import jobRolesServices from "../services/jobRolesServices.js";
 import sourcesServices from "../services/sourcesServices";
 import clientsServices from "../services/clientsServices";
-import { validationMixin } from "vuelidate";
-import {
-  required,
-  maxLength,
-  minLength,
-  email
-} from "vuelidate/lib/validators";
+
 import { mdbIcon } from "mdbvue";
 export default {
   components: {
@@ -258,27 +229,14 @@ export default {
     mdbIcon,
     Flip
   },
-  // el: "#wrapper",
-  mixins: [validationMixin],
-
-  validations: {
-    name: { required, maxLength: maxLength(10) },
-    contactno: { required, minLength: minLength(10), maxLength: maxLength(10) },
-    email: { required, email },
-    select: { required },
-    checkbox: {
-      checked(val) {
-        return val;
-      }
-    }
-  },
   data() {
     return {
       drawer: false,
-      items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
-      ],
+      dialog: false,
+      isLoading: false,
+      snackBar: false,
+      snackBarText: "",
+      snackTimeOut: 3000,
       right: null,
       workforceData: [],
       jobRolesData: [],
@@ -290,54 +248,34 @@ export default {
       search: "",
       switchRate: false,
       seen: false,
-      name: "",
-      contactno: "",
-      email: "",
       select: null,
       items: ["Item 1", "Item 2", "Item 3", "Item 4"],
       checkbox: false,
-      dropdown_edit: [
-        { text: "100%" },
-        { text: "75%" },
-        { text: "50%" },
-        { text: "25%" },
-        { text: "0%" }
+
+      rules: [
+        value =>
+          !value ||
+          value.size < 2000000 ||
+          "Avatar size should be less than 2 MB!"
       ],
-      rates: [1, 2, 3, 4, 5],
-      ratePerDay: ["", 1, 2, 3, 4, 5],
-      jobRole: ["", "Plumber", "Carpenter"],
-      sources: ["", "ABC", "XYZ", "PQR"]
+      file: null,
+      workforce_name: "",
+      workforce_contact: "",
+      workforce_rate: "",
+      job_role_id: "",
+      source_id: 0,
+      workforce_bill_rate: 0,
+      file: "",
+      imageName: "",
+      imageUrl: "",
+      imageFile: ""
     };
   },
   created() {
     this.getAllWorkforce();
-
-    jobRolesServices
-      .getAllJobRoles()
-      .then(result => {
-        this.jobRolesData = result.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    sourcesServices
-      .getAllSources()
-      .then(result => {
-        this.sourcesData = result.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
-
-    clientsServices
-      .getAllClients()
-      .then(result => {
-        this.clientsData = result.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.getAllJobRoles();
+    this.getAllSources();
+    this.getAllClients();
   },
   methods: {
     checkButton() {
@@ -349,6 +287,38 @@ export default {
         .then(result => {
           this.workforceData = result.data;
           // console.log(this.workforceData);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getAllJobRoles() {
+      jobRolesServices
+        .getAllJobRoles()
+        .then(result => {
+          this.jobRolesData = result.data;
+          this.job_role_id = this.jobRolesData[0].job_role_id;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getAllSources() {
+      sourcesServices
+        .getAllSources()
+        .then(result => {
+          this.sourcesData = result.data;
+          this.source_id = this.sourcesData[0].source_id;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    getAllClients() {
+      clientsServices
+        .getAllClients()
+        .then(result => {
+          this.clientsData = result.data;
         })
         .catch(err => {
           console.log(err);
@@ -373,19 +343,64 @@ export default {
         console.log(this.switchRate);
       }
     },
-    submit() {
-      this.$v.$touch();
-    },
-    clear() {
-      this.$v.$reset();
-      this.name = "";
-      this.email = "";
-      this.select = null;
-      this.checkbox = false;
-      this.contactno = "";
-    },
     scrollToTop() {
       window.scrollTo(0, 0);
+    },
+
+    addNewWorkForce() {
+      this.isLoading = true;
+      let formData = new FormData();
+      formData.append("workforce_name", this.workforce_name);
+      formData.append("workforce_rate", this.workforce_rate);
+      formData.append("job_role_id", this.job_role_id);
+      formData.append("workforce_contact", this.workforce_contact);
+      formData.append("source_id", this.source_id);
+      formData.append("workforce_bill_rate", this.workforce_bill_rate);
+      formData.append("image", this.file, this.imageName);
+
+      this.$http
+        .post("http://localhost:3000/workforces", formData)
+        .then(result => {
+          this.isLoading = false;
+          console.log(result);
+          this.dialog = false;
+          this.getAllWorkforce();
+          this.getAllJobRoles();
+          this.getAllSources();
+          this.getAllClients();
+          this.snackBarText = "Workforce added Successfully!";
+          this.snackBar = true;
+        })
+        .catch(err => {
+          this.isLoading = false;
+          this.dialog = false;
+          this.snackBarText = "WorkForce couldn't be added!!";
+          this.snackBar = true;
+          console.log(err);
+        });
+    },
+    pickFile() {
+      this.$refs.image.click();
+    },
+    onFilePicked(e) {
+      const files = e.target.files;
+      if (files[0] !== undefined) {
+        this.imageName = files[0].name;
+        if (this.imageName.lastIndexOf(".") <= 0) {
+          return;
+        }
+        const fr = new FileReader();
+        fr.readAsDataURL(files[0]);
+        fr.addEventListener("load", () => {
+          this.imageUrl = fr.result;
+          this.imageFile = files[0]; // this is an image file that can be sent to server...
+          this.file = files[0];
+        });
+      } else {
+        this.imageName = "";
+        this.imageFile = "";
+        this.imageUrl = "";
+      }
     }
   },
   computed: {
@@ -407,48 +422,6 @@ export default {
             .toString()
             .localeCompare(b[this.sortBy].toString());
         }); */
-    },
-    form() {
-      return {
-        name: this.name,
-        contactno: this.contactno,
-        email: this.email
-      };
-    },
-    checkboxErrors() {
-      const errors = [];
-      if (!this.$v.checkbox.$dirty) return errors;
-      !this.$v.checkbox.checked && errors.push("You must agree to continue!");
-      return errors;
-    },
-    selectErrors() {
-      const errors = [];
-      if (!this.$v.select.$dirty) return errors;
-      !this.$v.select.required && errors.push("Item is required");
-      return errors;
-    },
-    nameErrors() {
-      const errors = [];
-      if (!this.$v.name.$dirty) return errors;
-      !this.$v.name.maxLength &&
-        errors.push("Name must be at most 10 characters long");
-      !this.$v.name.required && errors.push("Name is required.");
-      return errors;
-    },
-    contactErrors() {
-      const errors = [];
-      if (!this.$v.contactno.$dirty) return errors;
-      !this.$v.contactno.minLength &&
-        errors.push("Contact NO must be at least 10 characters long");
-      !this.$v.contactno.required && errors.push("Contact Number is required.");
-      return errors;
-    },
-    emailErrors() {
-      const errors = [];
-      if (!this.$v.email.$dirty) return errors;
-      !this.$v.email.email && errors.push("Must be valid e-mail");
-      !this.$v.email.required && errors.push("E-mail is required");
-      return errors;
     }
   }
 };

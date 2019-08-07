@@ -6,7 +6,7 @@
           <v-layout justify-space-between pa-3>
             <v-flex d-flex text-xs-center>
               <v-scroll-y-transition mode="out-in">
-                <v-card class="pt-4 mx-auto" flat max-width="400">
+                <v-card class="pt-4 mx-auto" text max-width="400">
                   <!-- <v-btn
                     @click="editWorkForce"
                     fab
