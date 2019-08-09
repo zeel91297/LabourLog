@@ -1,12 +1,12 @@
 <template>
   <div>
     <v-spacer></v-spacer>
-    <h1>List of WorkForces</h1>
+    <!-- <h1>List of WorkForces</h1> -->
     <v-spacer></v-spacer>
     <v-container grid-list-md grid-list-sm>
       <v-layout wrap>
         <v-flex md4 sm4>
-          <v-btn dark color="black" @click.stop="drawer = !drawer" class="left" align-start>
+          <v-btn dark color="black" @click.stop="drawer = !drawer" class="left" large align-start>
             <!-- style="margin-bottom:15px;position:fixed;left:10px;" -->
             <v-icon dark>tune</v-icon>Filters
           </v-btn>
@@ -249,7 +249,6 @@ export default {
       switchRate: false,
       seen: false,
       select: null,
-      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
       checkbox: false,
 
       rules: [
@@ -258,7 +257,6 @@ export default {
           value.size < 2000000 ||
           "Avatar size should be less than 2 MB!"
       ],
-      file: null,
       workforce_name: "",
       workforce_contact: "",
       workforce_rate: "",
@@ -279,7 +277,7 @@ export default {
   },
   methods: {
     checkButton() {
-      console.log("hello");
+      /* console.log("hello"); */
     },
     getAllWorkforce() {
       workforceService
@@ -340,7 +338,6 @@ export default {
         this.workforceData.sort(
           (a, b) => parseFloat(a.workforce_rate) - parseFloat(b.workforce_rate)
         );
-        console.log(this.switchRate);
       }
     },
     scrollToTop() {
@@ -362,7 +359,7 @@ export default {
         .post("http://localhost:3000/workforces", formData)
         .then(result => {
           this.isLoading = false;
-          console.log(result);
+          /* console.log(result); */
           this.dialog = false;
           this.getAllWorkforce();
           this.getAllJobRoles();
