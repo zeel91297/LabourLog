@@ -29,7 +29,7 @@
         <v-list>
           <v-list-tile>
             <v-list-tile-title class="title">clear all</v-list-tile-title>
-            <v-btn flat icon color="black" @click.stop="drawer = !drawer">
+            <v-btn text icon color="black" @click.stop="drawer = !drawer">
               <v-icon>close</v-icon>
 
             </v-btn>

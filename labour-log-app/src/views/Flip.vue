@@ -12,30 +12,30 @@
             <v-layout justify-space-between pa-3>
               <v-flex d-flex text-xs-center>
                 <v-scroll-y-transition mode="out-in">
-                  <v-card class="pt-4 mx-auto" flat max-width="400">
-                    <v-btn
-                      @click="editWorkforce"
-                      fab
-                      absolute
-                      top
-                      right
-                      flat
-                      icon
-                      color="red"
-                      style="margin-right:-48px"
-                    >
-                      <v-icon>delete_sweep</v-icon>
-                    </v-btn>
+                  <v-card class="pt-4 mx-auto" text max-width="400">
                     <v-btn
                       @click="deleteWorkforce"
                       fab
                       absolute
                       top
                       right
-                      flat
+                      text
+                      icon
+                      color="red"
+                      style="margin-right:-33px;top:-15px"
+                    >
+                      <v-icon>delete_sweep</v-icon>
+                    </v-btn>
+                    <v-btn
+                      @click="editWorkforce"
+                      fab
+                      absolute
+                      top
+                      right
+                      text
                       icon
                       color="green"
-                      style="margin-right:-25px"
+                      style="margin-right:-10px;top:-15px"
                     >
                       <v-icon>edit</v-icon>
                     </v-btn>
@@ -206,11 +206,13 @@ export default {
   border: 1px solid;
   width: 50px;
   border: #ccc 0px solid;
+  top: 85px;
+  /* top: 70px; */
 
-  /* margin-right: 150px; */
-  top: 10px;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   /* margin-left: 4px; */
+  /* margin-bottom: -40px; */
+  /* bottom: 105px; */
   position: fixed;
   /* margin-right: -130px; */
   left: 70px;
@@ -344,6 +346,7 @@ export default {
   bottom: 0;
   left: 0;
   right: 0;
+  max-width: 476px;
   padding: 5em 3em;
   backface-visibility: hidden;
   transform-style: preserve-3d;

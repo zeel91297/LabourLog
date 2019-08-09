@@ -6,7 +6,7 @@
     <v-spacer></v-spacer>
     <v-text-field
       class="mx-5"
-      flat
+      text
       label="Search"
       prepend-inner-icon="search"
       solo-inverted

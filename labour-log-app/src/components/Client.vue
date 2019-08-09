@@ -11,7 +11,7 @@
 
         <v-card-actions>
           <!-- <v-btn flat>Share</v-btn> -->
-          <v-btn flat color="purple" @click="show = !show">View More</v-btn>
+          <v-btn text color="purple" @click="show = !show">View More</v-btn>
           <v-spacer></v-spacer>
           <v-btn icon @click="show = !show">
             <v-icon>{{ show ? 'keyboard_arrow_down' : 'keyboard_arrow_up' }}</v-icon>
