@@ -41,23 +41,35 @@
               </tr>-->
 
               <tr>
-                <td style="text-align:left" colspan="2">
+                <td style colspan="2">
                   <table class="todo-list" border="0" style="width:100%;">
                     <tr v-for="todo in todos" :key="todo.client_id">
-                      <td width="45%" style="white-space: nowrap;">
+                      <td width="37%" style="text-align:right;font-size:12px;white-space: nowrap">
                         <b>{{todo.heading}}</b>
                       </td>
-                      <td width="55%" style=" word-break: break-all;">
-                        <div v-show="todo.edit == false">
-                          <label @click="todo.edit = true" style>{{todo.value}}</label>
+                      <td width="auto" style=" word-break: break-all;">
+                        <div
+                          v-show="todo.edit == false"
+                          style="text-align:left;margin-left:10px;font-size:12px;"
+                        >
+                          <label @click="todo.edit = true;edit_icon_show()">{{todo.value}}</label>
                         </div>
-                        <input
+                        <!-- <input
                           v-show="todo.edit == true"
                           v-model="todo.value"
                           v-on:blur="todo.edit=false; $emit('update')"
-                          @keyup.enter="todo.edit=false; $emit('update');update_fun();"
+                          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);"
                           style="width:90%;"
-                        />
+                          :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
+                        />-->
+                        <v-text-field
+                          v-show="todo.edit == true"
+                          v-model="todo.value"
+                          v-on:blur="todo.edit=false; $emit('update')"
+                          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);save_icon_show()"
+                          style="width:90%;font-size:12px;"
+                          :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
+                        ></v-text-field>
                       </td>
                     </tr>
                   </table>
@@ -75,6 +87,26 @@
                   <a :href="/invoiceDateSelect/+clientObj.client_id">generate invoice</a>
                   <!-- </div> -->
                 </td>
+                <td>
+                  <v-btn
+                    v-show="show_edit_save_icon==false"
+                    dark
+                    color="cyan"
+                    icon
+                    @click="getfocus(todos)"
+                  >
+                    <v-icon>edit</v-icon>
+                  </v-btn>
+                  <v-btn
+                    v-show="show_edit_save_icon==true"
+                    color="success"
+                    icon
+                    @click="getfocusout(todos)"
+                  >
+                    <v-icon>done</v-icon>
+                  </v-btn>
+                  <!-- <button class='my-button'>Press</button> -->
+                </td>
               </tr>
             </table>
           </v-card-text>
@@ -83,8 +115,20 @@
     </v-flex>
   </v-layout>
 </template>
+<script >
+// function getfocus() {
+//   document.getElementById("myAnchor").focus();
+//   console.log("in");
+// }
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" scoped></script>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
+import JQuery from "jquery";
+let $ = JQuery;
+$(".my-button").click(function() {
+  $(".aaa").focus();
+});
 export default {
   props: {
     clientObj: {
@@ -100,10 +144,10 @@ export default {
     show: false,
 
     todos: [
-      { heading: "Name:", value: "one value", edit: false },
-      { heading: "Email ID:", value: "one value", edit: false },
-      { heading: "Contact NO:", value: "otro titulo", edit: false },
-      { heading: "Workers Working:", value: "13", edit: false }
+      { heading: "Name:", value: "one value", edit: false, index: 1 },
+      { heading: "Email ID:", value: "one value", edit: false, index: 2 },
+      { heading: "Contact No:", value: "otro titulo", edit: false, index: 3 },
+      { heading: "Workers Working:", value: "13", edit: false, index: 4 }
       // { title: "one value", edit: false }
     ],
     currName: "",
@@ -112,7 +156,9 @@ export default {
     currWorkersWorking: "",
     editedTodo: null,
     message: "",
-    snackbar: false
+    snackbar: false,
+    index: 1,
+    show_edit_save_icon: false
   }),
   methods: {
     editTodo: function(todo) {
@@ -127,7 +173,11 @@ export default {
       this.currContactNo = this.clientObj.client_contact;
       console.log(this.todos);
     },
-    update_fun() {
+    update_fun(indexValue) {
+      // alert(".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1));
+      $(
+        ".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1)
+      ).focus();
       if (this.todos[0].value != this.currName) {
         console.log(this.todos[0].value + " -> " + this.currName);
         this.currName = this.todos[0].value;
@@ -179,6 +229,38 @@ export default {
       } else {
         console.log("no change");
       }
+    },
+    updateForm() {},
+    getfocus(todos) {
+      this.show_edit_save_icon = true;
+      todos[0].edit = true;
+      todos[1].edit = true;
+      todos[2].edit = true;
+      $(".myAnchor-" + this.clientObj.client_id + "-" + todos[0].index).focus();
+    },
+    getfocusout(todos) {
+      this.show_edit_save_icon = false;
+      todos[0].edit = false;
+      todos[1].edit = false;
+      todos[2].edit = false;
+    },
+    edit_icon_show() {
+      // alert('==');
+      this.show_edit_save_icon = true;
+    },
+    save_icon_show() {
+      // console.log(this.todos[0].edit);
+      // console.log(this.todos[1].edit);
+      // console.log(this.todos[2].edit);
+      if (
+        this.todos[0].edit == false &&
+        this.todos[1].edit == false &&
+        this.todos[2].edit == false
+      ) {
+        // alert('in');
+        this.show_edit_save_icon = false;
+      }
+      // this.show_edit_save_icon = true;
     }
   }
 };
