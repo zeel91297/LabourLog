@@ -1,16 +1,20 @@
 <template>
   <!-- text-center text-xs-left -->
-  <div class="wrap">
-    <v-flex xs12 align-center left>
-      <h2 class="pink--text font-weight-bold">Attendance</h2>
+  <div class="wrap" style>
+    <v-flex xs7>
+      <h2
+        class="pink--text font-weight-bold"
+        style="white-space: nowrap;margin-left:60px;font-size:17px;"
+      >Attendance Calender</h2>
       <!-- <h2 class="pink--text font-weight-bold">Attendance Calendar</h2> -->
     </v-flex>
-    <ejs-calendar id="calendar" ref="CalendarInstance" v-model="dd" :change="onCreate"></ejs-calendar>
+    <ejs-calendar id="calendar" ref="CalendarInstance" v-model="dd" :change="onCreate" style="margin-left:25px;"></ejs-calendar>
     <!-- <h3 class="font-weight-bold purple--text text-xs-left" style="margin-left:55px">Working Details</h3> -->
     <!-- grid-list-md  -->
-    <v-container grid-list-md style="margin-top:-20px;">
+    <v-container grid-list-md style="margin-top:-20px;margin-left:25px;">
       <v-flex xs6 sm6 md6>
         <v-select
+          style="width:200px;"
           v-model="selectedClient"
           :items="clientsData"
           :disabled="!isEditing"
@@ -22,6 +26,7 @@
       </v-flex>
       <v-flex xs6 sm6 md6>
         <v-text-field
+          style="width:200px;"
           label="Hours Worked"
           type="number"
           :disabled="!isEditing"
@@ -29,7 +34,7 @@
           required
         ></v-text-field>
       </v-flex>
-      <v-flex align-center left style="margin-top:-30px;">
+      <v-flex align-center left style="margin-top:-30px;margin-right:25px;">
         <v-btn color="warning" icon @click.native="changeEditingFlag()" :disabled="isDataFlag==0">
           <v-icon>{{iconName}}</v-icon>
         </v-btn>
@@ -45,9 +50,9 @@
 </template>
 
 <script>
-import clientsServices from '../services/clientsServices'
+import clientsServices from "../services/clientsServices";
 export default {
-  data () {
+  data() {
     return {
       isMultiSelection: true,
       // dd: new Date("1/1/2019"),
@@ -59,11 +64,11 @@ export default {
       getWorkDetails: [],
       isDataFlag: false,
       isEditing: false,
-      iconName: 'edit',
+      iconName: "edit",
       snackbar: false,
-      message: '',
+      message: "",
       timeout: 1000
-    }
+    };
   },
   props: {
     workForceObj: {
@@ -71,115 +76,115 @@ export default {
       required: true
     }
   },
-  created () {
+  created() {
     //  this.getDate();
     clientsServices
       .getAllClients()
       .then(result => {
-        this.clientsData = result.data
+        this.clientsData = result.data;
       })
       .catch(err => {
-        console.log(err)
-      })
-    this.getDetailsOfDateandWork()
+        console.log(err);
+      });
+    this.getDetailsOfDateandWork();
   },
   methods: {
-    changeEditingFlag () {
+    changeEditingFlag() {
       if (this.isEditing) {
-        this.iconName = 'edit'
-        this.isEditing = false
+        this.iconName = "edit";
+        this.isEditing = false;
       } else {
-        this.iconName = 'close'
-        this.isEditing = true
+        this.iconName = "close";
+        this.isEditing = true;
       }
     },
-    getDetailsOfDateandWork () {
+    getDetailsOfDateandWork() {
       var dFormat = [
         this.dd.getUTCFullYear(),
         this.dd.getUTCMonth() + 1,
         this.dd.getUTCDate()
-      ].join('-')
+      ].join("-");
       this.$http
-        .post('http://localhost:3000/workForceCalenderDetailsByIdandDate/', {
+        .post("http://localhost:3000/workForceCalenderDetailsByIdandDate/", {
           workforce_id: this.workForceObj.workforce_id,
           work_date: dFormat
         })
         .then(res => {
-          this.getWorkDetails = res.data
+          this.getWorkDetails = res.data;
           /* console.log(this.getWorkDetails); */
           if (this.getWorkDetails.length === 1) {
-            this.selectedClient = this.getWorkDetails[0].client_id
-            this.work_hours = this.getWorkDetails[0].work_hours
-            this.isDataFlag = true
+            this.selectedClient = this.getWorkDetails[0].client_id;
+            this.work_hours = this.getWorkDetails[0].work_hours;
+            this.isDataFlag = true;
           } else {
-            this.selectedClient = this.clientsData[0].client_id
+            this.selectedClient = this.clientsData[0].client_id;
 
-            this.work_hours = 0
-            this.isDataFlag = false
-            this.isEditing = true
-            this.iconName = 'edit'
+            this.work_hours = 0;
+            this.isDataFlag = false;
+            this.isEditing = true;
+            this.iconName = "edit";
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
-    onCreate: function (args) {
-      let calendarObj = this.$refs.CalendarInstance
-      this.dialog = true
+    onCreate: function(args) {
+      let calendarObj = this.$refs.CalendarInstance;
+      this.dialog = true;
       var dFormat = [
         this.dd.getUTCFullYear(),
         this.dd.getUTCMonth() + 1,
         this.dd.getUTCDate()
-      ].join('-')
-      this.getDetailsOfDateandWork()
+      ].join("-");
+      this.getDetailsOfDateandWork();
     },
-    updateForm () {
+    updateForm() {
       if (this.isDataFlag) {
         this.$http
-          .put('http://localhost:3000/WorkForceWorkUpdate/', {
+          .put("http://localhost:3000/WorkForceWorkUpdate/", {
             workforce_work_id: this.getWorkDetails[0].workforce_work_id,
             client_id: this.selectedClient,
             work_hours: this.work_hours
           })
           .then(result => {
-            this.message = 'Details updated successfully!'
-            this.snackbar = true
+            this.message = "Details updated successfully!";
+            this.snackbar = true;
           })
           .catch(err => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     },
-    submitForm () {
+    submitForm() {
       if (this.isDataFlag) {
-        this.updateForm()
-        this.iconName = 'edit'
-        this.isEditing = false
+        this.updateForm();
+        this.iconName = "edit";
+        this.isEditing = false;
       } else {
         var dFormat = [
           this.dd.getUTCFullYear(),
           this.dd.getUTCMonth() + 1,
           this.dd.getUTCDate()
-        ].join('-')
+        ].join("-");
         this.$http
-          .post('http://localhost:3000/Workforcesworkingdetails', {
+          .post("http://localhost:3000/Workforcesworkingdetails", {
             client_id: this.selectedClient,
             workforce_id: this.workForceObj.workforce_id,
             work_date: dFormat,
             work_hours: this.work_hours
           })
           .then(res => {
-            this.message = 'Details submitted successfully!'
-            this.snackbar = true
-            this.isEditing = false
-            this.isDataFlag = true
-            this.iconName = 'edit'
-            this.getDetailsOfDateandWork()
+            this.message = "Details submitted successfully!";
+            this.snackbar = true;
+            this.isEditing = false;
+            this.isDataFlag = true;
+            this.iconName = "edit";
+            this.getDetailsOfDateandWork();
           })
-          .catch(err => console.log(err))
+          .catch(err => console.log(err));
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>
@@ -188,8 +193,14 @@ export default {
 @import "../../node_modules/@syncfusion/ej2-vue-calendars/styles/material.css";
 
 .wrap {
-  margin: 35px auto;
-  width: 440px;
+  margin: 175px 0px 175px -60px;
+  width: 300px;
   height: 300px;
+
+  border: dashed 1px black;
+  height: 535px;
+  margin-top:200px;
+  background-color: rgb(246, 250, 248);
+  
 }
 </style>

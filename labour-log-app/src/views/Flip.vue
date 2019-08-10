@@ -7,13 +7,13 @@
   <section class="container" id="ii">
     <div class="card_1" :class="['card-' + workForceObj.workforce_id ]">
       <div class="card__content">
-        <div class="card__front">
+        <div class="card__front" style="margin-right:30px;margin-left:-50px;margin-top:-80px;">
           <v-card app>
-            <v-layout justify-space-between pa-3>
+            <v-layout justify-space-between pa-2>
               <v-flex d-flex text-xs-center>
                 <v-scroll-y-transition mode="out-in">
                   <v-card class="pt-4 mx-auto" text max-width="400">
-                    <v-btn
+                    <!-- <v-btn
                       @click="deleteWorkforce"
                       fab
                       absolute
@@ -38,7 +38,7 @@
                       style="margin-right:-10px;top:-15px"
                     >
                       <v-icon>edit</v-icon>
-                    </v-btn>
+                    </v-btn>-->
 
                     <v-card-text>
                       <v-avatar size="88">
@@ -59,6 +59,14 @@
                       <v-flex>{{workForceObj.role_name}}</v-flex>
                       <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Phone:</v-flex>
                       <v-flex>{{workForceObj.workforce_contact}}</v-flex>
+                      <!-- <div>
+                        <v-btn dark color="cyan" icon v-on:click.native="getfocus()">
+                          <v-icon>edit</v-icon>
+                        </v-btn>
+                      </div>-->
+                      <!-- <button class="my-2" @click="getfocus()">
+                        <v-btn small>Normal</v-btn>
+                      </button> -->
                     </v-layout>
                   </v-card>
                 </v-scroll-y-transition>
@@ -71,7 +79,7 @@
         </div>
       </div>
     </div>
-    <button @click="flip(workForceObj.workforce_id)" id="laborLog" class="front_btn">
+    <button @click="flip(workForceObj.workforce_id)" id="laborLog" :class="setFlipCssClass()">
       <i class="material-icons">cached</i>
     </button>
   </section>
@@ -116,7 +124,8 @@ export default {
       avatar: null,
       open: [],
       users: [],
-      amt: 25
+      amt: 25,
+      setUp: true
     };
   },
   created() {
@@ -149,9 +158,19 @@ export default {
     currency: currencyFilter
   },
   methods: {
+    getfocus() {
+      alert("hello");
+    },
+    setFlipCssClass() {
+      if (this.setUp) {
+        return "front_btn";
+      }
+
+      return "front_btn_2";
+    },
     flip(workforcsID) {
       /* console.log(" workforcsID id got :", workforcsID); */
-
+      this.setUp = !this.setUp;
       var currentFlipBtnId;
       $("button").each(function() {
         var i = $(this).attr("id");
@@ -206,17 +225,33 @@ export default {
   border: 1px solid;
   width: 50px;
   border: #ccc 0px solid;
-  top: 85px;
-  /* top: 70px; */
+  top: 50px;
 
-  /* margin-top: 40px; */
-  /* margin-left: 4px; */
-  /* margin-bottom: -40px; */
-  /* bottom: 105px; */
   position: fixed;
-  /* margin-right: -130px; */
-  left: 70px;
+  left: 7px;
+  outline: none;
 }
+.front_btn:active {
+  outline: none;
+}
+.front_btn_2 {
+  color: black;
+  font-size: 10px;
+
+  border: 1px solid;
+  width: 50px;
+  border: #ccc 0px solid;
+  top: 5px;
+
+  position: fixed;
+
+  left: 12px;
+  outline: none;
+}
+.front_btn_2:active {
+  outline: none;
+}
+
 /* .container {
   width: 300px;
   height: 260px;
@@ -229,13 +264,14 @@ export default {
 } */
 .container {
   width: 300px;
-  height: 390px;
+  height: 530px;
   position: relative;
   border: 0px solid #ccc;
   -webkit-perspective: 800px;
   -moz-perspective: 800px;
   -o-perspective: 800px;
   perspective: 800px;
+  padding-top: -230px;
 }
 .card {
   width: 100%;

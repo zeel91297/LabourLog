@@ -245,13 +245,9 @@ export default {
       todos[2].edit = false;
     },
     edit_icon_show() {
-      // alert('==');
       this.show_edit_save_icon = true;
     },
     save_icon_show() {
-      // console.log(this.todos[0].edit);
-      // console.log(this.todos[1].edit);
-      // console.log(this.todos[2].edit);
       if (
         this.todos[0].edit == false &&
         this.todos[1].edit == false &&

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div >
     <v-spacer></v-spacer>
     <!-- <h1>List of WorkForces</h1> -->
     <v-spacer></v-spacer>
@@ -70,7 +70,7 @@
             ></v-autocomplete>
           </v-navigation-drawer>
         </v-flex>
-        <v-flex md8 sm8>
+        <v-flex md8 sm8 style="margin-bottom:5px;">
           <v-text-field
             flat
             label="Search"
@@ -181,19 +181,19 @@
       {{snackBarText}}
       <v-btn text color="pink" @click.native="snackBar = false">Close</v-btn>
     </v-snackbar>
-    <v-container grid-list-md grid-list-sm fill-height>
-      <v-layout wrap>
-        <v-flex
+    <v-container grid-list-md grid-list-sm fill-height >
+      <v-layout wrap style="margin-top:0px;">
+        <v-flex  
           md4
           lg3
           sm12
           v-for="workData in searchdWorkForce"
           :key="workData.workforce_id"
-          style="margin-bottom:140px;"
-          align-center
+          style="border:0px solid orange;padding-top:-250px;height:560px;"
+         
         >
           <!-- <WorkForce :workForceObj="workData"></WorkForce> -->
-          <Flip :workForceObj="workData"></Flip>
+          <Flip :workForceObj="workData" style="margin-right:auto;border:0px solid black;" ></Flip>
         </v-flex>
       </v-layout>
     </v-container>
@@ -205,7 +205,7 @@
       style="position:fixed;top:0;"
       @click="scrollToTop"
     >
-      <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px">
+      <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px;margin-right:20px;">
         <v-icon>add</v-icon>
       </v-btn>
     </div>

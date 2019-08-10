@@ -144,7 +144,15 @@
 
     <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
-        <v-flex md4 sm v-for="clientData in searchdWorkForce" :key="clientData.client_id">
+        <v-flex
+          xs12
+          sm6
+          md4
+          lg3
+          sm
+          v-for="clientData in searchdWorkForce"
+          :key="clientData.client_id"
+        >
           <Client :clientObj="clientData"></Client>
         </v-flex>
       </v-layout>

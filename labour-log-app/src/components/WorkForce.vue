@@ -1,8 +1,8 @@
 <template>
-  <div class="card">
-    <div class="card__content">
-      <div class="card__front">
-        <v-card app>
+  <div class="card" style="">
+    <div class="card__content" style="">
+      <div class="card__front" style="">
+        <v-card app style="">
           <v-layout justify-space-between pa-3>
             <v-flex d-flex text-xs-center>
               <v-scroll-y-transition mode="out-in">
@@ -58,7 +58,7 @@
         </v-card>
       </div>
 
-      <div class="card__back">
+      <div class="card__back" style="padding-top:100px;">
         <WorkForceCalender></WorkForceCalender>
       </div>
     </div>
@@ -164,7 +164,7 @@ export default {
 *::before,
 *::after {
   box-sizing: border-box;
-  margin: 0;
+  /* margin: 20px; */
 }
 
 /* body {
@@ -176,6 +176,7 @@ export default {
 
 .card {
   width: 400px;
+  /* margin-left: -30px; */
 }
 
 .card__content {
@@ -210,6 +211,9 @@ export default {
   /* background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/308367/fair.jpg); */
   background-size: cover;
   background-blend-mode: overlay;
+  /* background-color: black; */
+  /* margin: 50px 0px 0px 0px; */
+  /* border: 2px solid black; */
   /* color: #333; */
 }
 
