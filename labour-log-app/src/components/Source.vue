@@ -46,14 +46,9 @@
           <!-- style=" word-break: break-all;" -->
           <td width="auto" style=" word-break: break-all;">
             <div v-show="todo.edit == false" style="text-align:left;margin-left:10px;">
-              <label @click="todo.edit = true" style>{{todo.value}}</label>
+              <label  style>{{todo.value}}</label>
             </div>
-            <v-text-field
-              v-show="todo.edit == true"
-              v-model="todo.value"
-            
-              style="width:90%;"
-            />
+            <v-text-field v-show="todo.edit == true" v-model="todo.value" style="width:90%;" />
           </td>
         </tr>
       </table>
@@ -157,7 +152,7 @@ export default {
       this.currEmail = this.sourceObj.source_email;
     },
     update_fun() {
-      console.log('--------');
+      console.log("--------");
       let source_id = this.sourceObj.source_id;
       this.$http
         .put("http://localhost:3000/Sources/update/" + source_id, {
@@ -172,10 +167,7 @@ export default {
           console.log(err);
         });
     },
-    updateForm() {
-
-
-    },
+    updateForm() {},
     getfocus(todos) {
       this.show_edit_save_icon = true;
       this.cardHeightBig = true;

@@ -52,7 +52,7 @@
                           v-show="todo.edit == false"
                           style="text-align:left;margin-left:10px;font-size:12px;"
                         >
-                          <label @click="todo.edit = true;edit_icon_show()">{{todo.value}}</label>
+                          <label >{{todo.value}}</label>
                         </div>
                         <!-- <input
                           v-show="todo.edit == true"
@@ -65,7 +65,7 @@
                         <v-text-field
                           v-show="todo.edit == true"
                           v-model="todo.value"
-                          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);save_icon_show()"
+                        
                           style="width:90%;font-size:12px;"
                           :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
                         ></v-text-field>
