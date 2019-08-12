@@ -12,44 +12,113 @@
       clearable
       v-model="search"
     ></v-text-field>
-    <v-btn
-      dark
-      color="black"
-      @click.stop="drawer = !drawer"
-      class="left"
-      style="margin-bottom:15px"
+    <div class="settings" id="wrapper">
+      <div v-if="seen" id="hide">
+        <form v-on:submit.prevent="addNewSource">
+          <table width="100%">
+            <tr>
+              <td>
+                <mdb-icon icon="hotel" />
+              </td>
+              <td>
+                <v-text-field
+                  v-model="name"
+                  :error-messages="nameErrors"
+                  :counter="10"
+                  label="Name"
+                  required
+                  @input="$v.name.$touch()"
+                  @blur="$v.name.$touch()"
+                ></v-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mdb-icon far icon="clipboard" />
+              </td>
+              <td>
+                <v-text-field
+                  v-model="description"
+                  label="description"
+                  @input="$v.description.$touch()"
+                  @blur="$v.description.$touch()"
+                ></v-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <!-- <v-icon large color="teal darken-2">email</v-icon> -->
+                <mdb-icon far icon="envelope" />
+              </td>
+              <td>
+                <v-text-field
+                  v-model="email"
+                  :error-messages="emailErrors"
+                  label="E-mail"
+                  required
+                  @input="$v.email.$touch()"
+                  @blur="$v.email.$touch()"
+                ></v-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <mdb-icon icon="mobile-alt" />
+              </td>
+              <td>
+                <v-text-field
+                  v-model="contactno"
+                  :error-messages="contactErrors"
+                  :counter="10"
+                  label="Contact Number"
+                  required
+                  @input="$v.contactno.$touch()"
+                  @blur="$v.contactno.$touch()"
+                ></v-text-field>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td>
+                <v-checkbox
+                  v-model="checkbox"
+                  :error-messages="checkboxErrors"
+                  label="Do you agree?"
+                  required
+                  @change="$v.checkbox.$touch()"
+                  @blur="$v.checkbox.$touch()"
+                ></v-checkbox>
+              </td>
+            </tr>
+          </table>
+
+          <!-- <v-select
+        v-model="select"
+        :items="items"
+        :error-messages="selectErrors"
+        label="Item"
+        required
+        @change="$v.select.$touch()"
+        @blur="$v.select.$touch()"
+
+          ></v-select>-->
+
+          <v-btn color="success" @click="submit">ADD</v-btn>
+          <v-btn color="warning" @click="clear">clear</v-btn>
+        </form>
+      </div>
+    </div>
+    <div
+      id="app"
+      class="control"
+      v-on:click="seen = !seen"
+      style="position:fixed;top:0;"
+      @click="scrollToTop"
     >
-      <v-icon dark>tune</v-icon>Filters
-    </v-btn>
-    <v-btn color="pink" dark absolute top right fab style="margin-top:50px">
-      <v-icon>add</v-icon>
-    </v-btn>
-    <v-navigation-drawer v-model="drawer" absolute>
-      <v-toolbar flat>
-        <v-list>
-          <v-list-item-content>
-            <v-list-item-title class="title">clear all</v-list-item-title>
-            <v-btn text icon color="black" @click.stop="drawer = !drawer">
-              <v-icon>close</v-icon>
-            </v-btn>
-          </v-list-item-content>
-        </v-list>
-      </v-toolbar>
-
-      <v-divider></v-divider>
-
-      <v-list dense class="pt-0">
-        <v-list-item v-for="item in items" :key="item.title" @click="checkButton">
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
+      <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px">
+        <v-icon>add</v-icon>
+      </v-btn>
+    </div>
     <v-container grid-list-md grid-list-sm>
       <v-layout row wrap>
         <v-flex md6 sm12 v-for="sourceData in searchdWorkForce" :key="sourceData.source_id">
@@ -59,27 +128,62 @@
     </v-container>
   </div>
 </template>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
-<script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
 import Source from "@/components/Source.vue";
 import sourcesServices from "../services/sourcesServices";
-
+import AddSources from "@/components/AddSources.vue";
+import { validationMixin } from "vuelidate";
+import {
+  required,
+  maxLength,
+  minLength,
+  email,
+  name,
+  Contact,
+  description
+} from "vuelidate/lib/validators";
+import JQuery from "jquery";
+let $ = JQuery;
+import { mdbIcon } from "mdbvue";
 export default {
   components: {
-    Source
+    Source,
+    AddSources,
+    mdbIcon
+  },
+  //el: '#wrapper',
+  mixins: [validationMixin],
+  validations: {
+    name: { required, maxLength: maxLength(10) },
+    contactno: { required, minLength: minLength(10), maxLength: maxLength(10) },
+    email: { required, email },
+    select: { required },
+    checkbox: {
+      checked(val) {
+        return val;
+      }
+    }
   },
   data() {
     return {
       drawer: true,
-      items: [
-        { title: "Home", icon: "dashboard" },
-        { title: "About", icon: "question_answer" }
-      ],
+      seen: false,
       right: null,
       sourcesData: [],
-      search: ""
+      search: "",
+      name: "",
+      contactno: "",
+      email: "",
+      description: "",
+      select: null,
+      items: ["Item 1", "Item 2", "Item 3", "Item 4"],
+      checkbox: false
     };
   },
+  mounted() {},
   created() {
     sourcesServices
       .getAllSources()
@@ -91,11 +195,84 @@ export default {
       });
   },
   methods: {
-    checkButton() {
-      console.log("hello");
+    submit() {
+      alert(
+        "name:" +
+          this.name +
+          "description" +
+          this.description +
+          "number" +
+          this.contactno +
+          "email" +
+          this.email
+      );
+      console.log("name" + this.name);
+      console.log("description" + this.description);
+      console.log("number" + this.contactno);
+      console.log("email" + this.email);
+
+      this.$http
+        .post("http://localhost:3000/Sources/", {
+          source_name: this.name,
+          source_desc: this.descrption,
+          source_contact: this.contactno,
+          source_email: this.email
+        })
+        .then(res => {
+          alert();
+          this.getAllSources();
+        })
+        .catch(err => console.log(err));
+    },
+    clear() {
+      this.$v.$reset();
+      this.name = "";
+      this.email = "";
+      this.select = null;
+      this.checkbox = false;
+      this.contactno = "";
+      this.description = "";
+    },
+    scrollToTop() {
+      window.scrollTo(0, 0);
     }
   },
   computed: {
+    checkboxErrors() {
+      const errors = [];
+      if (!this.$v.checkbox.$dirty) return errors;
+      !this.$v.checkbox.checked && errors.push("You must agree to continue!");
+      return errors;
+    },
+    selectErrors() {
+      const errors = [];
+      if (!this.$v.select.$dirty) return errors;
+      !this.$v.select.required && errors.push("Item is required");
+      return errors;
+    },
+    nameErrors() {
+      const errors = [];
+      if (!this.$v.name.$dirty) return errors;
+      !this.$v.name.maxLength &&
+        errors.push("Name must be at most 10 characters long");
+      !this.$v.name.required && errors.push("Name is required.");
+      return errors;
+    },
+    contactErrors() {
+      const errors = [];
+      if (!this.$v.contactno.$dirty) return errors;
+      !this.$v.contactno.minLength &&
+        errors.push("Contact NO must be at least 10 characters long");
+      !this.$v.contactno.required && errors.push("Contact Number is required.");
+      return errors;
+    },
+    emailErrors() {
+      const errors = [];
+      if (!this.$v.email.$dirty) return errors;
+      !this.$v.email.email && errors.push("Must be valid e-mail");
+      !this.$v.email.required && errors.push("E-mail is required");
+      return errors;
+    },
     searchdWorkForce() {
       return this.sourcesData.filter(item => {
         return (
@@ -119,4 +296,12 @@ export default {
 </script>
 
 <style>
+.settings {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 50%;
+}
 </style>

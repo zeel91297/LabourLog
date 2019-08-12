@@ -36,19 +36,20 @@ router.post('/', function (req, res, next) {
         }
     });
 });
-router.post('/update/:id?', function (req,res,next){
-    Sources.updatesource(req.params.id,req.body,function(err,count){
-if(err)
-{
-    res.json(err);
-}
-else{
-    res.json(count);
-}
+router.put('/update/:id?', function (req, res, next) {
+    console.log(req.body);
+    console.log(req.params.id);
+    Sources.updatesource(req.params.id, req.body, function (err, count) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(count);
+        }
     });
 });
 
-router.delete('/delete/:id?',function(req ,res ,next){
+router.delete('/delete/:id?', function (req, res, next) {
     if (req.params.id) {
         //console.log(req.params.id);
         Sources.deleteSourcesById(req.params.id, function (err, rows) {
@@ -62,15 +63,15 @@ router.delete('/delete/:id?',function(req ,res ,next){
     }
 });
 
-router.get('/workforcebysourceid/:id?', function(req,res ,next){
-        Sources.WorkforcecountBySourcebyID(req.params.id, function(err, count){
-            if(err){
-                res.json(err);
-            }
-            else{
-                res.json(count);
-            }
-        })
+router.get('/workforcebysourceid/:id?', function (req, res, next) {
+    Sources.WorkforcecountBySourcebyID(req.params.id, function (err, count) {
+        if (err) {
+            res.json(err);
+        }
+        else {
+            res.json(count);
+        }
+    })
 });
 
 
