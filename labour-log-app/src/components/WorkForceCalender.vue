@@ -8,7 +8,13 @@
       >Attendance Calender</h2>
       <!-- <h2 class="pink--text font-weight-bold">Attendance Calendar</h2> -->
     </v-flex>
-    <ejs-calendar id="calendar" ref="CalendarInstance" v-model="dd" :change="onCreate" style="margin-left:25px;"></ejs-calendar>
+    <ejs-calendar
+      id="calendar"
+      ref="CalendarInstance"
+      v-model="dd"
+      :change="onCreate"
+      style="margin-left:25px;"
+    ></ejs-calendar>
     <!-- <h3 class="font-weight-bold purple--text text-xs-left" style="margin-left:55px">Working Details</h3> -->
     <!-- grid-list-md  -->
     <v-container grid-list-md style="margin-top:-20px;margin-left:25px;">
@@ -116,6 +122,7 @@ export default {
             this.selectedClient = this.getWorkDetails[0].client_id;
             this.work_hours = this.getWorkDetails[0].work_hours;
             this.isDataFlag = true;
+            this.isEditing = false;
           } else {
             this.selectedClient = this.clientsData[0].client_id;
 
@@ -199,8 +206,7 @@ export default {
 
   border: dashed 1px black;
   height: 535px;
-  margin-top:200px;
+  margin-top: 200px;
   background-color: rgb(246, 250, 248);
-  
 }
 </style>

@@ -75,8 +75,6 @@
       <v-icon>delete</v-icon>
     </v-btn>
   </section>
-
-  <!-- </div> -->
 </template>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" scoped></script>
@@ -85,7 +83,7 @@ import WorkForceCalender from "@/components/WorkForceCalender.vue";
 import JQuery from "jquery";
 let $ = JQuery;
 import currencyFilter from "../shared/currency-filter";
-//  console.log(JQuery);
+
 if (typeof jQuery !== "undefined") {
   console.log("jQuery Loaded");
 } else {
@@ -197,19 +195,6 @@ export default {
     deleteWorkforce() {
       console.log("delete");
     }
-  },
-  async fetchUsers(item) {
-    // Remove in 6 months and say
-    // you've made optimizations! :)
-    await pause(1500);
-
-    return fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(json => item.children.push(...json))
-      .catch(err => console.warn(err));
-  },
-  randomAvatar() {
-    this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
   }
 };
 </script>
