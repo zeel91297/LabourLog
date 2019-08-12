@@ -5,7 +5,7 @@
         <v-img src="https://www.themailcompany.es/wp-content/uploads/header_01.jpg" height="130px"></v-img>
 
         <v-card-title primary-title>
-          <div>{{todos[0].value}}</div>
+          <div style="font-size:15px;">{{todos[0].value}}</div>
           <!-- <span class="grey--text">1,000 miles of wonder</span> -->
         </v-card-title>
 
@@ -46,7 +46,7 @@
                     <tr v-for="todo in todos" :key="todo.client_id">
                       <td width="37%" style="text-align:right;font-size:12px;white-space: nowrap">
                         <b>{{todo.heading}}</b>
-                      </td>
+                      </td> 
                       <td width="auto" style=" word-break: break-all;">
                         <div
                           v-show="todo.edit == false"
@@ -137,7 +137,7 @@ export default {
     }
   },
   created() {
-    console.log(this.clientObj);
+    // console.log(this.clientObj);
     this.assignClientDetails();
   },
   data: () => ({

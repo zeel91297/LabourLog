@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div>
     <v-spacer></v-spacer>
     <!-- <h1>List of WorkForces</h1> -->
     <v-spacer></v-spacer>
@@ -181,19 +181,18 @@
       {{snackBarText}}
       <v-btn text color="pink" @click.native="snackBar = false">Close</v-btn>
     </v-snackbar>
-    <v-container grid-list-md grid-list-sm fill-height >
-      <v-layout wrap style="margin-top:0px;">
-        <v-flex  
+    <v-container grid-list-md grid-list-sm fill-height>
+      <v-layout wrap style="margin-top:20px;">
+        <v-flex
           md4
           lg3
           sm12
           v-for="workData in searchdWorkForce"
           :key="workData.workforce_id"
           style="border:0px solid orange;padding-top:-250px;height:560px;"
-         
         >
           <!-- <WorkForce :workForceObj="workData"></WorkForce> -->
-          <Flip :workForceObj="workData" style="margin-right:auto;border:0px solid black;" ></Flip>
+          <Flip :workForceObj="workData" style="margin-right:auto;border:0px solid black;"></Flip>
         </v-flex>
       </v-layout>
     </v-container>

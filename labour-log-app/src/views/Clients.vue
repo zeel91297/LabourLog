@@ -83,7 +83,7 @@
               <td></td>
               <td>
                 <v-btn color="success" type="submit" @click="submit">ADD</v-btn>
-                <v-btn color="warning" @click="clear">clear</v-btn>
+                <v-btn color="warning" @click="clear" style="margin-left:10px;">clear</v-btn>
               </td>
             </tr>
           </table>

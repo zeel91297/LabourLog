@@ -6,6 +6,7 @@
       <br>
       date2 ->  {{date2}}
     <br>-->
+    {{clientInvoiceData[0]}}
     <v-data-table :headers="headers" :items="clientInvoiceData" class="elevation-1">
       <template v-slot:items="props">
         <td class="text-xs-left">{{ props.item.WorkForce_Name }}</td>
@@ -18,10 +19,10 @@
         <td class="text-xs-left">
           <strong>Total Amount</strong>
         </td>
+        <!-- <td class="text-xs-left"></td>
         <td class="text-xs-left"></td>
-        <td class="text-xs-left"></td>
-        <td class="text-xs-left"></td>
-        <td class="text-xs-left">
+        <td class="text-xs-left"></td> -->
+        <td class="text-xs-left" colspan="4">
           <strong>{{total_amount}}</strong>
         </td>
       </template>
