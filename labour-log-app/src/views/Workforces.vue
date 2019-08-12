@@ -85,7 +85,7 @@
     </v-container>
 
     <v-layout justify-center>
-      <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-dialog v-model="dialog" persistent max-width="500px">
         <v-card>
           <v-card-title>
             <span class="headline">Add new WorkForce</span>
@@ -204,7 +204,7 @@
       style="position:fixed;top:0;"
       @click="scrollToTop"
     >
-      <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px;margin-right:20px;">
+      <v-btn color="pink" dark fixed bottom right fab style="margin-top:50px;margin-right:40px;">
         <v-icon>add</v-icon>
       </v-btn>
     </div>
