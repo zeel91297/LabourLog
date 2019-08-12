@@ -2,11 +2,13 @@ var db = require('../dbconnection');
 
 var Workforces = {
     getAllWorkForces: function (callback) {
-        return db.query("select * from workforces", callback);
+        /* return db.query("select * from workforces", callback); */
+        return db.query("SELECT * from workforces w, job_roles j, sources s WHERE w.job_role_id=j.job_role_id AND w.source_id=s.source_id", callback);
     },
     getWorkforceById: function (id, callback) {
         //console.log(id);
-        return db.query("SELECT * FROM `workforces` WHERE `workforce_id`=?", [id], callback);
+        /* return db.query("SELECT * FROM `workforces` WHERE `workforce_id`=?", [id], callback); */
+        return db.query("SELECT * from workforces w, job_roles j, sources s WHERE w.workforce_id=1 AND w.job_role_id=j.job_role_id AND w.source_id=s.source_id", [id], callback);
     },
     addWorkforce: function (WorkForce, callback) {
         console.log(WorkForce);
