@@ -1,14 +1,8 @@
   <template>
-  <!-- <div>
-  hello {{myid}}-->
-  <!-- <button onclick="flip()">flip the card</button> -->
-  <!-- <button onclick="flip()">flip the card</button> -->
-  <!-- <button onclick="flip()">flip the card</button> -->
   <section class="container" id="ii">
     <div class="card_1" :class="['card-' + workForceObj.workforce_id ]">
       <div class="card__content">
         <div class="card__front" style="margin-right:30px;margin-left:-50px;margin-top:-80px;">
-          <!-- v-bind:class="[cardWidth ? cardWidthUp : cardWidthDown]" -->
           <v-card app v-bind:class="[cardWidth ? 'cardWidthUp' : 'cardWidthDown']">
             <v-layout justify-space-between pa-2>
               <v-flex d-flex text-xs-center>
@@ -19,74 +13,13 @@
                     style="width:100%;"
                     v-bind:class="[cardWidth ? 'innercardWidthUp' : 'innercardWidthDown']"
                   >
-                    <!-- v-for="todo in todos" :key="todo.workforce_id" -->
-                    <!-- <v-btn
-                        @click="deleteWorkforce"
-                        fab
-                        absolute
-                        top
-                        right
-                        text
-                        icon
-                        color="red"
-                        style="margin-right:-33px;top:-15px"
-                      >
-                        <v-icon>delete_sweep</v-icon>
-                      </v-btn>
-                      <v-btn
-                        @click="editWorkforce"
-                        fab
-                        absolute
-                        top
-                        right
-                        text
-                        icon
-                        color="green"
-                        style="margin-right:-10px;top:-15px"
-                      >
-                        <v-icon>edit</v-icon>
-                    </v-btn>-->
-
                     <v-card-text style>
                       <v-avatar size="88">
                         <!-- src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light" -->
                         <v-img src="http://localhost:3000/images/avataaars.png" class="mb-4" />
                       </v-avatar>
-
-                      <!-- <h3 class="headline mb-2">{{todos[0].value}}</h3> -->
-                      <!-- <div class="blue--text mb-2">Sincere@april.biz</div> -->
-
-                      <!-- <div
-                            v-show="todos[0].edit == false"
-                            style="text-align:left;margin-left:10px;font-size:12px;"
-                          >
-                            <label @click="todos[0].edit = true;edit_icon_show()">{{todos[0].value}}</label>
-                          </div>
-                        
-                          <v-text-field
-                            v-show="todos[0].edit == true"
-                            v-model="todos[0].value"
-                            v-on:blur="todos[0].edit=false; $emit('update')"
-                            @keyup.enter="todos[0].edit=false; $emit('update');update_fun(todos[0].index);save_icon_show()"
-                            style="width:90%;font-size:12px;"
-                            :class="['myAnchor-' + workForceObj.workforce_id+'-'+todos[0].index ]"
-                      ></v-text-field>-->
                     </v-card-text>
                     <v-divider></v-divider>
-                    <!-- <v-divider></v-divider>
-                      <v-layout tag="v-card-text" text-xs-left wrap style>
-                        <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Rate / Day:</v-flex>
-                        <v-flex>{{workForceObj.workforce_rate | currency('zł')}}</v-flex>
-                        <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Job Role:</v-flex>
-                        <v-flex>{{workForceObj.role_name}}</v-flex>
-                        <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Phone:</v-flex>
-                        <v-flex>{{workForceObj.workforce_contact}}</v-flex>
-                    </v-layout>-->
-                    <!--  <div>
-                          <v-btn dark color="cyan" icon v-on:click.native="getfocus()">
-                            <v-icon>edit</v-icon>
-                          </v-btn>
-                    </div>-->
                   </v-card>
                 </v-scroll-y-transition>
               </v-flex>
@@ -120,8 +53,6 @@
             style="width:70%;font-size:12px;"
             :class="['myAnchor-' + workForceObj.workforce_id+'-'+todo.index ]"
           ></v-text-field>
-          <!-- v-on:blur="todo.edit=false; $emit('update')"
-          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);save_icon_show();"-->
         </td>
       </tr>
     </table>
@@ -132,13 +63,8 @@
       v-if="show_flip_btn"
       v-bind:class="[setFlipCssClass()]"
     >
-      <!-- [setFlipButton ?'flip_button_down':'flip_button_up'] -->
-      <!-- :class="[setFlipCssClass()]" -->
       <i class="material-icons">cached</i>
     </button>
-    <!-- <button class="my-2" @click="getfocus()">
-        <v-btn small>Normal</v-btn>
-    </button>-->
     <v-btn
       dark
       color="cyan"
@@ -162,8 +88,6 @@
       <v-icon>done</v-icon>
     </v-btn>
   </section>
-
-  <!-- </div> -->
 </template>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" scoped></script>
@@ -172,7 +96,7 @@ import WorkForceCalender from "@/components/WorkForceCalender.vue";
 import JQuery from "jquery";
 let $ = JQuery;
 import currencyFilter from "../shared/currency-filter";
-//  console.log(JQuery);
+
 if (typeof jQuery !== "undefined") {
   console.log("jQuery Loaded");
 } else {
@@ -219,6 +143,7 @@ export default {
       currJobRole: "",
       currPhone: "",
       currSource: "",
+      currBillRate: "",
       editedTodo: null,
       message: "",
       snackbar: false,
@@ -266,7 +191,6 @@ export default {
         this.todos[3].edit == false &&
         this.todos[4].edit == false
       ) {
-        // alert('in');
         this.cardWidth = true;
         this.show_edit_save_icon = false;
         this.setUpEditBtn = true;
@@ -275,10 +199,6 @@ export default {
       // this.show_edit_save_icon = true;
     },
     update_fun() {
-      // alert(".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1));
-      // $(
-      //   ".myAnchor-" + this.workForceObj.workforce_id + "-" + (indexValue + 1)
-      // ).focus();
       if (
         this.todos[0].value != this.currName ||
         this.todos[1].value != this.currSource ||
@@ -295,6 +215,17 @@ export default {
 
         this.message = "WorkForce Personal Details Updated successfully ||";
         this.snackbar = true;
+        this.$http.put(
+          "http://localhost:3000/workforces/" + this.workForceObj.workforce_id,
+          {
+            workforce_name: this.currName,
+            workforce_rate: this.currRate,
+            job_role_id: this.currJobRole,
+            workforce_contact: this.currPhone,
+            source_id: this.currSource,
+            workforce_bill_rate: this.currBillRate
+          }
+        );
         // this.$http
         //   .put("http://localhost:3000/workforcePersonalDetailsUpdate/", {})
         //   .then(result => {
@@ -338,7 +269,6 @@ export default {
       $(
         ".myAnchor-" + this.workForceObj.workforce_id + "-" + todos[0].index
       ).focus();
-      // alert(this.workForceObj.workforce_id);
     },
     getfocusout(todos) {
       this.setUpEditBtn = true;
@@ -414,19 +344,6 @@ export default {
     deleteWorkforce() {
       console.log("delete");
     }
-  },
-  async fetchUsers(item) {
-    // Remove in 6 months and say
-    // you've made optimizations! :)
-    await pause(1500);
-
-    return fetch("https://jsonplaceholder.typicode.com/users")
-      .then(res => res.json())
-      .then(json => item.children.push(...json))
-      .catch(err => console.warn(err));
-  },
-  randomAvatar() {
-    this.avatar = avatars[Math.floor(Math.random() * avatars.length)];
   }
 };
 </script>
