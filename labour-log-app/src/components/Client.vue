@@ -46,13 +46,13 @@
                     <tr v-for="todo in todos" :key="todo.client_id">
                       <td width="37%" style="text-align:right;font-size:12px;white-space: nowrap">
                         <b>{{todo.heading}}</b>
-                      </td> 
+                      </td>
                       <td width="auto" style=" word-break: break-all;">
                         <div
                           v-show="todo.edit == false"
                           style="text-align:left;margin-left:10px;font-size:12px;"
                         >
-                          <label @click="todo.edit = true;edit_icon_show()">{{todo.value}}</label>
+                          <label >{{todo.value}}</label>
                         </div>
                         <!-- <input
                           v-show="todo.edit == true"
@@ -65,11 +65,11 @@
                         <v-text-field
                           v-show="todo.edit == true"
                           v-model="todo.value"
-                          v-on:blur="todo.edit=false; $emit('update')"
-                          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);save_icon_show()"
+                        
                           style="width:90%;font-size:12px;"
                           :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
                         ></v-text-field>
+                        <!-- v-on:blur="todo.edit=false; $emit('update')" -->
                       </td>
                     </tr>
                   </table>
@@ -77,13 +77,6 @@
               </tr>
               <tr>
                 <td style="text-align:left">
-                  <!-- <div class="text-xs-center"> -->
-                  <!-- <v-btn
-                      round
-                      color="primary"
-                      dark
-                      window.location.href=this.$router.push('workforces')
-                  >GENERATE INVOICE</v-btn>-->
                   <a :href="/invoiceDateSelect/+clientObj.client_id">generate invoice</a>
                   <!-- </div> -->
                 </td>
@@ -105,7 +98,6 @@
                   >
                     <v-icon>done</v-icon>
                   </v-btn>
-                  <!-- <button class='my-button'>Press</button> -->
                 </td>
               </tr>
             </table>
@@ -115,12 +107,7 @@
     </v-flex>
   </v-layout>
 </template>
-<script >
-// function getfocus() {
-//   document.getElementById("myAnchor").focus();
-//   console.log("in");
-// }
-</script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" scoped></script>
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
@@ -174,10 +161,12 @@ export default {
       console.log(this.todos);
     },
     update_fun(indexValue) {
-      // alert(".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1));
+      this.updateForm();
       $(
         ".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1)
       ).focus();
+    },
+    updateForm() {
       if (this.todos[0].value != this.currName) {
         console.log(this.todos[0].value + " -> " + this.currName);
         this.currName = this.todos[0].value;
@@ -230,7 +219,6 @@ export default {
         console.log("no change");
       }
     },
-    updateForm() {},
     getfocus(todos) {
       this.show_edit_save_icon = true;
       todos[0].edit = true;
@@ -239,6 +227,7 @@ export default {
       $(".myAnchor-" + this.clientObj.client_id + "-" + todos[0].index).focus();
     },
     getfocusout(todos) {
+      this.updateForm();
       this.show_edit_save_icon = false;
       todos[0].edit = false;
       todos[1].edit = false;

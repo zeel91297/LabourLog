@@ -1,96 +1,78 @@
-<template>
-  <v-card app>
-    <v-layout justify-space-between pa-3>
+<template >
+  <v-card app style="width:370px;margin-top:10px;" v-bind:class="cardHeightBig?'big':'small'">
+    <!-- <v-layout justify-space-between pa-3>
       <v-flex d-flex text-xs-center>
         <v-scroll-y-transition mode="out-in">
-          <v-flex xs12>
+          <v-flex xs6>
             <v-card>
               <v-layout>
                 <v-flex xs5>
                   <v-img
                     src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
                     class="mb-4"
-                    height="125px"
+                    height="120px"
                     contain
                   ></v-img>
                 </v-flex>
-                <v-flex xs7>
-                  <v-card-title primary-title>
-                    <v-layout text-xs-left wrap>
-                      <table>
-                        <!-- <tr>
-                        <td> <v-flex tag="strong"><i class="material-icons">
-                          store_mall_directory
-                        </i></v-flex>
-                        </td>
-                        <td v-if="edit_check=true"><v-flex>{{sourceObj.source_name}}</v-flex></td>
-                        <td v-if="edit_check=false"><v-text-field></v-text-field></td>
-                        </tr>
-                        <tr>
-                        <td><v-flex tag="strong" ><v-icon>phone</v-icon></v-flex></td>
-                        <td><v-flex>{{sourceObj.source_contact}}</v-flex></td>
-                        </tr>
-                        <tr>
-                        <td> <v-flex tag="strong"><v-icon>mail</v-icon></v-flex></td>
-                        <td><v-flex text-xs-right>{{sourceObj.source_email}}</v-flex></td>
-                        </tr>-->
-                        <tr>
-                          <td style colspan="2">
-                            <table class="todo-list" border="0" style="width:100%;">
-                              <tr v-for="todo in todos" :key="todo.source_id">
-                                <td width="37%" style="white-space: nowrap;">
-                                  <b>{{todo.heading}}</b>
-                                </td>
-                                <!-- style=" word-break: break-all;" -->
-                                <td width="auto" style=" word-break: break-all;">
-                                  <div
-                                    v-show="todo.edit == false"
-                                    style="text-align:left;margin-left:10px;font-size:20px;"
-                                  >
-                                    <label @click="todo.edit = true" style>{{todo.value}}</label>
-                                  </div>
-                                  <v-text-field
-                                    v-show="todo.edit == true"
-                                    v-model="todo.value"
-                                    v-on:blur="todo.edit=false; $emit('update')"
-                                    @keyup.enter="todo.edit=false; $emit('update');update_fun();save_icon_show()"
-                                    style="width:90%;font-size:12px;"
-                                  />
-                                </td>
-                              </tr>
-                              <tr>
-                                <td>
-                                  <v-btn
-                                    v-show="show_edit_save_icon==false"
-                                    dark
-                                    color="cyan"
-                                    icon
-                                    @click="getfocus(todos)"
-                                  >
-                                    <v-icon>edit</v-icon>
-                                  </v-btn>
-                                  <v-btn
-                                    v-show="show_edit_save_icon==true"
-                                    color="success"
-                                    icon
-                                    @click="getfocusout(todos)"
-                                  >
-                                    <v-icon>done</v-icon>
-                                  </v-btn>
-                                </td>
-                              </tr>
-                            </table>
-                          </td>
-                        </tr>
-                      </table>
-                    </v-layout>
-                  </v-card-title>
-                </v-flex>
               </v-layout>
+              
             </v-card>
           </v-flex>
         </v-scroll-y-transition>
       </v-flex>
+    </v-layout>-->
+    <v-layout style="height:100px;">
+      <v-layout style="margin-left:-30px;margin-right:-30px;">
+        <v-flex>
+          <v-img
+            src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
+            class="mb-4"
+            height="100px"
+            contain
+            style="margin-top:15px;"
+          ></v-img>
+        </v-flex>
+      </v-layout>
+      <table
+        class="todo-list"
+        border="0"
+        style="font-size:12px;margin-top:40px;margin-right:20px;"
+        width="100%"
+      >
+        <tr v-for="todo in todos" :key="todo.source_id">
+          <td width="15%" style="white-space: nowrap;">
+            <b>{{todo.heading}}</b>
+          </td>
+          <!-- style=" word-break: break-all;" -->
+          <td width="auto" style=" word-break: break-all;">
+            <div v-show="todo.edit == false" style="text-align:left;margin-left:10px;">
+              <label  style>{{todo.value}}</label>
+            </div>
+            <v-text-field v-show="todo.edit == true" v-model="todo.value" style="width:90%;" />
+          </td>
+        </tr>
+      </table>
+    </v-layout>
+    <v-layout>
+      <v-btn
+        v-show="show_edit_save_icon==false"
+        dark
+        color="cyan"
+        icon
+        @click="getfocus(todos)"
+        class="edit_btn"
+      >
+        <v-icon>edit</v-icon>
+      </v-btn>
+      <v-btn
+        v-show="show_edit_save_icon==true"
+        color="success"
+        icon
+        @click="getfocusout(todos);update_fun()"
+        class="done_btn"
+      >
+        <v-icon>done</v-icon>
+      </v-btn>
     </v-layout>
   </v-card>
 </template>
@@ -130,7 +112,8 @@ export default {
       /* editedTOdo: null, */
       snackbar: false,
       message: "",
-      show_edit_save_icon: false
+      show_edit_save_icon: false,
+      cardHeightBig: false
     };
   },
   computed: {
@@ -169,6 +152,7 @@ export default {
       this.currEmail = this.sourceObj.source_email;
     },
     update_fun() {
+      console.log("--------");
       let source_id = this.sourceObj.source_id;
       this.$http
         .put("http://localhost:3000/Sources/update/" + source_id, {
@@ -186,11 +170,13 @@ export default {
     updateForm() {},
     getfocus(todos) {
       this.show_edit_save_icon = true;
+      this.cardHeightBig = true;
       todos[0].edit = true;
       todos[1].edit = true;
       todos[2].edit = true;
     },
     getfocusout(todos) {
+      this.cardHeightBig = false;
       this.show_edit_save_icon = false;
       todos[0].edit = false;
       todos[1].edit = false;
@@ -215,4 +201,34 @@ export default {
 </script>
 
 <style>
+.edit_btn {
+  color: black;
+  font-size: 10px;
+  border: 1px solid;
+  width: 50px;
+  border: #ccc 0px solid;
+  top: -110px;
+
+  position: fixed;
+  left: 80%;
+  outline: none;
+}
+.done_btn {
+  color: black;
+  font-size: 10px;
+  border: 1px solid;
+  width: 50px;
+  border: #ccc 0px solid;
+  top: -110px;
+
+  position: fixed;
+  left: 80%;
+  outline: none;
+}
+.big {
+  height: 250px;
+}
+.samll {
+  height: 550px;
+}
 </style>

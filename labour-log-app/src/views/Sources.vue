@@ -32,7 +32,7 @@
                 ></v-text-field>
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>
                 <mdb-icon far icon="clipboard" />
               </td>
@@ -44,7 +44,7 @@
                   @blur="$v.description.$touch()"
                 ></v-text-field>
               </td>
-            </tr>
+            </tr>-->
             <tr>
               <td>
                 <!-- <v-icon large color="teal darken-2">email</v-icon> -->
@@ -104,10 +104,17 @@
           ></v-select>-->
 
           <v-btn color="success" @click="submit">ADD</v-btn>
-          <v-btn color="warning" @click="clear">clear</v-btn>
+          <v-btn color="warning" @click="clear" style="margin-left:15px;">clear</v-btn>
         </form>
       </div>
     </div>
+    <v-container grid-list-md grid-list-sm>
+      <v-layout row wrap>
+        <v-flex md4 sm12 v-for="sourceData in searchdWorkForce" :key="sourceData.source_id">
+          <Source :sourceObj="sourceData" />
+        </v-flex>
+      </v-layout>
+    </v-container>
     <div
       id="app"
       class="control"
@@ -119,13 +126,6 @@
         <v-icon>add</v-icon>
       </v-btn>
     </div>
-    <v-container grid-list-md grid-list-sm>
-      <v-layout row wrap>
-        <v-flex md6 sm12 v-for="sourceData in searchdWorkForce" :key="sourceData.source_id">
-          <Source :sourceObj="sourceData" />
-        </v-flex>
-      </v-layout>
-    </v-container>
   </div>
 </template>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -185,27 +185,22 @@ export default {
   },
   mounted() {},
   created() {
-    sourcesServices
-      .getAllSources()
-      .then(result => {
-        this.sourcesData = result.data;
-      })
-      .catch(err => {
-        console.log(err);
-      });
+    this.callALLSources();
   },
   methods: {
+    callALLSources() {
+      sourcesServices
+        .getAllSources()
+        .then(result => {
+          this.sourcesData = result.data;
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
     submit() {
-      alert(
-        "name:" +
-          this.name +
-          "description" +
-          this.description +
-          "number" +
-          this.contactno +
-          "email" +
-          this.email
-      );
+      this.$v.$touch();
+
       console.log("name" + this.name);
       console.log("description" + this.description);
       console.log("number" + this.contactno);
@@ -219,8 +214,8 @@ export default {
           source_email: this.email
         })
         .then(res => {
-          alert();
-          this.getAllSources();
+          // alert();
+          this.callALLSources();
         })
         .catch(err => console.log(err));
     },
