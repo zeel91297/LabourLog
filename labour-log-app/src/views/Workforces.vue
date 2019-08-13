@@ -192,7 +192,11 @@
           style="border:0px solid orange;padding-top:-250px;height:560px;"
         >
           <!-- <WorkForce :workForceObj="workData"></WorkForce> -->
-          <Flip :workForceObj="workData" style="margin-right:auto;border:0px solid black;"></Flip>
+          <Flip
+            :workForceObj="workData"
+            @finished="finished"
+            style="margin-right:auto;border:0px solid black;"
+          ></Flip>
         </v-flex>
       </v-layout>
     </v-container>
@@ -277,6 +281,12 @@ export default {
   methods: {
     checkButton() {
       /* console.log("hello"); */
+    },
+    finished() {
+      this.getAllWorkforce();
+      this.getAllJobRoles();
+      this.getAllSources();
+      this.getAllClients();
     },
     getAllWorkforce() {
       workforceService

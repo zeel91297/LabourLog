@@ -284,6 +284,9 @@ export default {
     currency: currencyFilter
   },
   methods: {
+    finished() {
+      this.$emit("finished");
+    },
     editWorkForceDetails(id) {
       /* alert(id); */
       this.dialog = true;
@@ -387,7 +390,7 @@ export default {
           this.snackBarText = "Details updated successfully!";
           this.snackBar = true;
           this.dialog = false;
-          window.location.reload();
+          /* window.location.reload(); */
           this.$http
             .get("http://localhost:3000/workforces/" + id)
             .then(res => {
