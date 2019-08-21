@@ -269,7 +269,7 @@ export default {
       console.log("name" + this.email);
 
       this.$http
-        .post("http://localhost:3000/clients", {
+        .post("https://labourlogapis.azurewebsites.net/clients", {
           client_name: this.name,
           client_contact: this.contactno,
           client_email: this.email,

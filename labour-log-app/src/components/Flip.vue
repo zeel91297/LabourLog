@@ -11,11 +11,13 @@
                     <v-card-text>
                       <v-avatar size="88">
                         <!-- src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light" -->
-                        <v-img src="http://localhost:3000/images/avataaars.png" class="mb-4" />
+                        <v-img
+                          src="https://labourlogapis.azurewebsites.net/images/avataaars.png"
+                          class="mb-4"
+                        />
                       </v-avatar>
                       <h3 class="headline mb-2">{{workForceObj.workforce_name}}</h3>
-                      <!-- <h3 class="headline mb-2">{{workforce_name}}</h3> -->
-                      <!-- <div class="blue--text mb-2">Sincere@april.biz</div> -->
+
                       <div
                         class="blue--text subheading font-weight-bold"
                       >{{workForceObj.source_name}}</div>
@@ -24,13 +26,10 @@
                     <v-layout tag="v-card-text" text-xs-left wrap>
                       <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Rate / Day:</v-flex>
                       <v-flex>{{workForceObj.workforce_rate | currency('zł')}}</v-flex>
-                      <!-- <v-flex>{{workforce_rate | currency('zł')}}</v-flex> -->
                       <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Job Role:</v-flex>
                       <v-flex>{{workForceObj.role_name}}</v-flex>
-                      <!-- <v-flex>{{role_name}}</v-flex> -->
                       <v-flex tag="strong" xs5 text-xs-right mr-3 mb-2>Phone:</v-flex>
                       <v-flex>{{workForceObj.workforce_contact}}</v-flex>
-                      <!-- <v-flex>{{workforce_contact}}</v-flex> -->
                     </v-layout>
                   </v-card>
                 </v-scroll-y-transition>
@@ -264,7 +263,7 @@ export default {
           children: this.users
         }
       ];
-    },
+    }
   },
   filters: {
     currency: currencyFilter
@@ -364,7 +363,7 @@ export default {
     },
     editWorkforce(id) {
       this.$http
-        .put("http://localhost:3000/workforces/" + id, {
+        .put("https://labourlogapis.azurewebsites.net/workforces/" + id, {
           workforce_name: this.workforce_name,
           workforce_rate: this.workforce_rate,
           job_role_id: this.job_role_id,
@@ -378,7 +377,7 @@ export default {
           this.dialog = false;
           /* window.location.reload(); */
           this.$http
-            .get("http://localhost:3000/workforces/" + id)
+            .get("https://labourlogapis.azurewebsites.net/workforces/" + id)
             .then(res => {
               console.log(res.data);
               //this.workForceObj = res.data;

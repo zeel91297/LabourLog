@@ -218,7 +218,7 @@
 <script scoped>
 import JQuery from "jquery";
 let $ = JQuery;
-import Flip from "../views/Flip.vue";
+import Flip from "@/components/Flip.vue";
 import WorkForce from "@/components/WorkForce.vue";
 import workforceService from "../services/workforceService.js";
 import jobRolesServices from "../services/jobRolesServices.js";
@@ -365,7 +365,7 @@ export default {
       formData.append("image", this.file, this.imageName);
 
       this.$http
-        .post("http://localhost:3000/workforces", formData)
+        .post("https://labourlogapis.azurewebsites.net/workforces", formData)
         .then(result => {
           this.isLoading = false;
           /* console.log(result); */
@@ -434,21 +434,6 @@ export default {
 </script>
 
 <style scoped>
-/* .front {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #673ab7;
-  color: white;
-}
-
-.back {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #ffc107;
-  color: white;
-} */
 .settings {
   top: 0;
   bottom: 0;

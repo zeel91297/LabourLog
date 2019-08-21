@@ -9,7 +9,7 @@ export default {
     //    console.log(JSONObj);
     //    console.log('============');
     //    console.log(JSON.stringify(JSONObj, null, '    '));
-    return Vue.http.get('http://localhost:3000/ClientInvoiceGenerate/' + req)
+    return Vue.http.get('https://labourlogapis.azurewebsites.net/ClientInvoiceGenerate/' + req)
   }
 
 }

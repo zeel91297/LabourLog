@@ -155,7 +155,7 @@ export default {
       console.log("--------");
       let source_id = this.sourceObj.source_id;
       this.$http
-        .put("http://localhost:3000/Sources/update/" + source_id, {
+        .put("https://labourlogapis.azurewebsites.net/Sources/update/" + source_id, {
           source_name: this.todos[0].value,
           source_contact: this.todos[2].value,
           source_email: this.todos[1].value

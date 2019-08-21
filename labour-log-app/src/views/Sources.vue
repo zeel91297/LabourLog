@@ -79,17 +79,6 @@
             </tr>
           </table>
 
-          <!-- <v-select
-        v-model="select"
-        :items="items"
-        :error-messages="selectErrors"
-        label="Item"
-        required
-        @change="$v.select.$touch()"
-        @blur="$v.select.$touch()"
-
-          ></v-select>-->
-
           <v-btn color="success" @click="submit">ADD</v-btn>
           <v-btn color="warning" @click="clear" style="margin-left:15px;">clear</v-btn>
         </form>
@@ -141,7 +130,6 @@ export default {
     AddSources,
     mdbIcon
   },
-  //el: '#wrapper',
   mixins: [validationMixin],
   validations: {
     name: { required, maxLength: maxLength(10) },
@@ -194,7 +182,7 @@ export default {
       console.log("email" + this.email);
 
       this.$http
-        .post("http://localhost:3000/Sources/", {
+        .post("https://labourlogapis.azurewebsites.net/Sources/", {
           source_name: this.name,
           source_desc: this.descrption,
           source_contact: this.contactno,

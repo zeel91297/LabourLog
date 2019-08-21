@@ -32,11 +32,13 @@
       </v-flex>
       <v-flex xs6 sm6 md6>
         <v-text-field
+          autofocus
           style="width:200px;"
           label="Hours Worked"
           type="number"
           :disabled="!isEditing"
           v-model="work_hours"
+          v-on:keyup.enter="submitForm"
           required
         ></v-text-field>
       </v-flex>
@@ -56,9 +58,9 @@
 </template>
 
 <script>
-import clientsServices from '../services/clientsServices'
+import clientsServices from "../services/clientsServices";
 export default {
-  data () {
+  data() {
     return {
       isMultiSelection: true,
       // dd: new Date("1/1/2019"),
@@ -70,11 +72,11 @@ export default {
       getWorkDetails: [],
       isDataFlag: false,
       isEditing: false,
-      iconName: 'edit',
+      iconName: "edit",
       snackbar: false,
-      message: '',
+      message: "",
       timeout: 1000
-    }
+    };
   },
   props: {
     workForceObj: {
@@ -82,116 +84,122 @@ export default {
       required: true
     }
   },
-  created () {
+  created() {
     //  this.getDate();
     clientsServices
       .getAllClients()
       .then(result => {
-        this.clientsData = result.data
+        this.clientsData = result.data;
       })
       .catch(err => {
-        console.log(err)
-      })
-    this.getDetailsOfDateandWork()
+        console.log(err);
+      });
+    this.getDetailsOfDateandWork();
   },
   methods: {
-    changeEditingFlag () {
+    changeEditingFlag() {
       if (this.isEditing) {
-        this.iconName = 'edit'
-        this.isEditing = false
+        this.iconName = "edit";
+        this.isEditing = false;
       } else {
-        this.iconName = 'close'
-        this.isEditing = true
+        this.iconName = "close";
+        this.isEditing = true;
       }
     },
-    getDetailsOfDateandWork () {
+    getDetailsOfDateandWork() {
       var dFormat = [
         this.dd.getUTCFullYear(),
         this.dd.getUTCMonth() + 1,
         this.dd.getUTCDate()
-      ].join('-')
+      ].join("-");
       this.$http
-        .post('http://localhost:3000/workForceCalenderDetailsByIdandDate/', {
-          workforce_id: this.workForceObj.workforce_id,
-          work_date: dFormat
-        })
+        .post(
+          "https://labourlogapis.azurewebsites.net/workForceCalenderDetailsByIdandDate/",
+          {
+            workforce_id: this.workForceObj.workforce_id,
+            work_date: dFormat
+          }
+        )
         .then(res => {
-          this.getWorkDetails = res.data
+          this.getWorkDetails = res.data;
           /* console.log(this.getWorkDetails); */
           if (this.getWorkDetails.length === 1) {
-            this.selectedClient = this.getWorkDetails[0].client_id
-            this.work_hours = this.getWorkDetails[0].work_hours
-            this.isDataFlag = true
-            this.isEditing = false
+            this.selectedClient = this.getWorkDetails[0].client_id;
+            this.work_hours = this.getWorkDetails[0].work_hours;
+            this.isDataFlag = true;
+            this.isEditing = false;
           } else {
-            this.selectedClient = this.clientsData[0].client_id
+            this.selectedClient = this.clientsData[0].client_id;
 
-            this.work_hours = 0
-            this.isDataFlag = false
-            this.isEditing = true
-            this.iconName = 'edit'
+            this.work_hours = 0;
+            this.isDataFlag = false;
+            this.isEditing = true;
+            this.iconName = "edit";
           }
         })
-        .catch(err => console.log(err))
+        .catch(err => console.log(err));
     },
-    onCreate: function (args) {
-      let calendarObj = this.$refs.CalendarInstance
-      this.dialog = true
+    onCreate: function(args) {
+      let calendarObj = this.$refs.CalendarInstance;
+      this.dialog = true;
       var dFormat = [
         this.dd.getUTCFullYear(),
         this.dd.getUTCMonth() + 1,
         this.dd.getUTCDate()
-      ].join('-')
-      this.getDetailsOfDateandWork()
+      ].join("-");
+      this.getDetailsOfDateandWork();
     },
-    updateForm () {
+    updateForm() {
       if (this.isDataFlag) {
         this.$http
-          .put('http://localhost:3000/WorkForceWorkUpdate/', {
+          .put("https://labourlogapis.azurewebsites.net/WorkForceWorkUpdate/", {
             workforce_work_id: this.getWorkDetails[0].workforce_work_id,
             client_id: this.selectedClient,
             work_hours: this.work_hours
           })
           .then(result => {
-            this.message = 'Details updated successfully!'
-            this.snackbar = true
+            this.message = "Details updated successfully!";
+            this.snackbar = true;
           })
           .catch(err => {
-            console.log(err)
-          })
+            console.log(err);
+          });
       }
     },
-    submitForm () {
+    submitForm() {
       if (this.isDataFlag) {
-        this.updateForm()
-        this.iconName = 'edit'
-        this.isEditing = false
+        this.updateForm();
+        this.iconName = "edit";
+        this.isEditing = false;
       } else {
         var dFormat = [
           this.dd.getUTCFullYear(),
           this.dd.getUTCMonth() + 1,
           this.dd.getUTCDate()
-        ].join('-')
+        ].join("-");
         this.$http
-          .post('http://localhost:3000/Workforcesworkingdetails', {
-            client_id: this.selectedClient,
-            workforce_id: this.workForceObj.workforce_id,
-            work_date: dFormat,
-            work_hours: this.work_hours
-          })
+          .post(
+            "https://labourlogapis.azurewebsites.net/Workforcesworkingdetails",
+            {
+              client_id: this.selectedClient,
+              workforce_id: this.workForceObj.workforce_id,
+              work_date: dFormat,
+              work_hours: this.work_hours
+            }
+          )
           .then(res => {
-            this.message = 'Details submitted successfully!'
-            this.snackbar = true
-            this.isEditing = false
-            this.isDataFlag = true
-            this.iconName = 'edit'
-            this.getDetailsOfDateandWork()
+            this.message = "Details submitted successfully!";
+            this.snackbar = true;
+            this.isEditing = false;
+            this.isDataFlag = true;
+            this.iconName = "edit";
+            this.getDetailsOfDateandWork();
           })
-          .catch(err => console.log(err))
+          .catch(err => console.log(err));
       }
     }
   }
-}
+};
 </script>
 
 <style scoped>

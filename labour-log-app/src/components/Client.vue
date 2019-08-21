@@ -21,25 +21,6 @@
         <v-slide-y-transition>
           <v-card-text v-show="show">
             <table style="width:100%">
-              <!-- <tr>
-                <td style="text-align:left">
-                  <b>Email ID:</b>
-                </td>
-                <td style="text-align:left">{{clientObj.client_email}}</td>
-              </tr>
-              <tr>
-                <td style="text-align:left">
-                  <b>Contact NO:</b>
-                </td>
-                <td style="text-align:left">{{clientObj.client_contact}}</td>
-              </tr>
-              <tr>
-                <td style="text-align:left">
-                  <b>No of Workers currently Working:</b>
-                </td>
-                <td style="text-align:left">13</td>
-              </tr>-->
-
               <tr>
                 <td style colspan="2">
                   <table class="todo-list" border="0" style="width:100%;">
@@ -52,20 +33,11 @@
                           v-show="todo.edit == false"
                           style="text-align:left;margin-left:10px;font-size:12px;"
                         >
-                          <label >{{todo.value}}</label>
+                          <label>{{todo.value}}</label>
                         </div>
-                        <!-- <input
-                          v-show="todo.edit == true"
-                          v-model="todo.value"
-                          v-on:blur="todo.edit=false; $emit('update')"
-                          @keyup.enter="todo.edit=false; $emit('update');update_fun(todo.index);"
-                          style="width:90%;"
-                          :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
-                        />-->
                         <v-text-field
                           v-show="todo.edit == true"
                           v-model="todo.value"
-
                           style="width:90%;font-size:12px;"
                           :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
                         ></v-text-field>
@@ -171,7 +143,7 @@ export default {
         console.log(this.todos[0].value + " -> " + this.currName);
         this.currName = this.todos[0].value;
         this.$http
-          .put("http://localhost:3000/clientNameUpdate/", {
+          .put("https://labourlogapis.azurewebsites.net/clientNameUpdate/", {
             client_id: this.clientObj.client_id,
             client_name: this.todos[0].value
           })
@@ -187,7 +159,7 @@ export default {
         console.log(this.todos[1].value + " -> " + this.currEmailId);
         this.currEmailId = this.todos[1].value;
         this.$http
-          .put("http://localhost:3000/clientEmailIdUpdate/", {
+          .put("https://labourlogapis.azurewebsites.net/clientEmailIdUpdate/", {
             client_id: this.clientObj.client_id,
             client_email: this.todos[1].value
           })
@@ -203,10 +175,13 @@ export default {
         console.log(this.todos[2].value + " -> " + this.currContactNo);
         this.currContactNo = this.todos[2].value;
         this.$http
-          .put("http://localhost:3000/clientContactNoUpdate/", {
-            client_id: this.clientObj.client_id,
-            client_contact: this.todos[2].value
-          })
+          .put(
+            "https://labourlogapis.azurewebsites.net/clientContactNoUpdate/",
+            {
+              client_id: this.clientObj.client_id,
+              client_contact: this.todos[2].value
+            }
+          )
           .then(result => {
             console.log(result);
             this.message = " Client Contact No updated successfully!";
