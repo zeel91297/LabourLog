@@ -245,10 +245,6 @@ export default {
     };
   },
   created() {
-    // var idCount = this.workForceObj.workforce_id + "mm";
-    // $("button").each(function() {
-    //   $(this).attr("id", "q" + idCount);
-    // });
     this.getAllJobRoles();
     this.getAllSources();
     this.workforce_name = this.workForceObj.workforce_name;
@@ -260,9 +256,6 @@ export default {
     this.source_name = this.workForceObj.source_name;
     this.workforce_bill_rate = this.workForceObj.workforce_bill_rate;
   },
-  watch: {
-    selected: "randomAvatar"
-  },
   computed: {
     items() {
       return [
@@ -272,13 +265,6 @@ export default {
         }
       ];
     },
-    selected() {
-      if (!this.active.length) return undefined;
-
-      const id = this.active[0];
-
-      return this.users.find(user => user.id === id);
-    }
   },
   filters: {
     currency: currencyFilter

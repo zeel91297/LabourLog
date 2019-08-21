@@ -15,7 +15,7 @@
                   ></v-img>
                 </v-flex>
               </v-layout>
-              
+
             </v-card>
           </v-flex>
         </v-scroll-y-transition>

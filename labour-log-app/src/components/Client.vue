@@ -65,7 +65,7 @@
                         <v-text-field
                           v-show="todo.edit == true"
                           v-model="todo.value"
-                        
+
                           style="width:90%;font-size:12px;"
                           :class="['myAnchor-' + clientObj.client_id+'-'+todo.index ]"
                         ></v-text-field>

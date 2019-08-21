@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-spacer></v-spacer>
-    <h1>List of Sources</h1>
+    <h1>List of Companies</h1>
     <v-spacer></v-spacer>
     <v-text-field
       class="mx-5"
@@ -32,19 +32,6 @@
                 ></v-text-field>
               </td>
             </tr>
-            <!-- <tr>
-              <td>
-                <mdb-icon far icon="clipboard" />
-              </td>
-              <td>
-                <v-text-field
-                  v-model="description"
-                  label="description"
-                  @input="$v.description.$touch()"
-                  @blur="$v.description.$touch()"
-                ></v-text-field>
-              </td>
-            </tr>-->
             <tr>
               <td>
                 <!-- <v-icon large color="teal darken-2">email</v-icon> -->
