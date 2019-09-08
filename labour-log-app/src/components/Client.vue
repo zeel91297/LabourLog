@@ -49,7 +49,9 @@
               </tr>
               <tr>
                 <td style="text-align:left">
-                  <a :href="/invoiceDateSelect/+clientObj.client_id">generate invoice</a>
+                  <!-- <a :href="/invoiceDateSelect/+clientObj.client_id">generate invoice</a> -->
+                  <v-btn @click="onClickInvoice" class="blue--text" text>Generate Invoice</v-btn>
+
                   <!-- </div> -->
                 </td>
                 <td>
@@ -84,6 +86,7 @@
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <script>
 import JQuery from "jquery";
+import router from "../router";
 let $ = JQuery;
 $(".my-button").click(function() {
   $(".aaa").focus();
@@ -137,6 +140,12 @@ export default {
       $(
         ".myAnchor-" + this.clientObj.client_id + "-" + (indexValue + 1)
       ).focus();
+    },
+    onClickInvoice() {
+      router.push({
+        name: "invoiceDateSelect",
+        params: { id: this.clientObj.client_id }
+      });
     },
     updateForm() {
       if (this.todos[0].value != this.currName) {

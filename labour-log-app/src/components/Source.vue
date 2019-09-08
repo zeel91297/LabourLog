@@ -25,7 +25,7 @@
       <v-layout style="margin-left:-30px;margin-right:-30px;">
         <v-flex>
           <v-img
-            src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
+            src="https://labourlogapis.azurewebsites.net/images/avataaars.png"
             class="mb-4"
             height="100px"
             contain
@@ -46,7 +46,7 @@
           <!-- style=" word-break: break-all;" -->
           <td width="auto" style=" word-break: break-all;">
             <div v-show="todo.edit == false" style="text-align:left;margin-left:10px;">
-              <label  style>{{todo.value}}</label>
+              <label style>{{todo.value}}</label>
             </div>
             <v-text-field v-show="todo.edit == true" v-model="todo.value" style="width:90%;" />
           </td>
@@ -155,11 +155,14 @@ export default {
       console.log("--------");
       let source_id = this.sourceObj.source_id;
       this.$http
-        .put("https://labourlogapis.azurewebsites.net/Sources/update/" + source_id, {
-          source_name: this.todos[0].value,
-          source_contact: this.todos[2].value,
-          source_email: this.todos[1].value
-        })
+        .put(
+          "https://labourlogapis.azurewebsites.net/Sources/update/" + source_id,
+          {
+            source_name: this.todos[0].value,
+            source_contact: this.todos[2].value,
+            source_email: this.todos[1].value
+          }
+        )
         .then(result => {
           console.log(result);
         })

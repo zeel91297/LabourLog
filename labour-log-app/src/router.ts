@@ -1,17 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from './views/Home.vue'
-import Sources from './views/Sources.vue'
-import WorkForces from './views/Workforces.vue'
-import Clients from './views/Clients.vue'
-import ClientInvoiceDateSelect from './views/ClientInvoiceDateSelect.vue'
-import ClientInvoice from './views/ClientInvoice.vue'
+import Sources from '@/components/Sources.vue'
+import WorkForces from '@/components/Workforces.vue'
+import Clients from '@/components/Clients.vue'
+import ClientInvoiceDateSelect from '@/components/ClientInvoiceDateSelect.vue'
+import ClientInvoice from '@/components/ClientInvoice.vue'
 Vue.use(Router)
 
 export default new Router({
   mode: 'history',
   /* base: process.env.BASE_URL, */
+  base: '',
   routes: [
     {
       path: '/',
@@ -38,13 +38,14 @@ export default new Router({
       path: '/invoiceDateSelect/:id',
       name: 'invoiceDateSelect',
       component: ClientInvoiceDateSelect
+      // component: () => import('@/components/ClientInvoiceDateSelect.vue')
 
     },
     {
-      path: '/ClientInvoice/:id',
+      path: '/ClientInvoice/:id/:date1/:date2',
       name: 'ClientInvoice',
       component: ClientInvoice
-
+      // component: () => import('@/components/ClientInvoice.vue')
     }
   ]
 })
