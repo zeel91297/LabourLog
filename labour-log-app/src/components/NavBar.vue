@@ -7,7 +7,7 @@
       <v-toolbar-title @click="onClickWorkForces" class="white--text">Labour Log</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn @click="onClickSources" class="white--text" text>Sources</v-btn>
+        <v-btn @click="onClickSources" class="white--text" text>Companies</v-btn>
         <v-btn @click="onClickWorkForces" class="white--text" text>Labours</v-btn>
         <v-btn @click="onClickClients" class="white--text" text>Clients</v-btn>
       </v-toolbar-items>

@@ -73,14 +73,14 @@
       <v-icon>delete</v-icon>
     </v-btn>
     <v-layout justify-center>
-      <v-dialog v-model="dialog" persistent max-width="500px">
+      <v-dialog v-model="dialog" persistent max-width="330">
         <v-card>
           <v-card-title>
             <span class="headline">Edit Labour</span>
           </v-card-title>
           <v-card-text>
             <v-container grid-list-md>
-              <v-layout wrap>
+              <v-layout wrap>wamp
                 <v-flex xs12 sm12 md12>
                   <v-text-field
                     label="WorkForce Name*"
