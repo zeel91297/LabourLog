@@ -54,11 +54,11 @@
   </div>
 </template>
 <script type="text/javascript" scoped>
-import invoice from "../services/invoice";
-import Vue from "vue";
+import invoice from '../services/invoice'
+import Vue from 'vue'
 
 export default {
-  data() {
+  data () {
     return {
       clientInvoiceData: [],
       myid: null,
@@ -68,60 +68,60 @@ export default {
       file_name: null,
       headers: [
         {
-          text: "WorkForce Name",
-          align: "left",
+          text: 'WorkForce Name',
+          align: 'left',
           // sortable: false,
-          value: "WorkForce_Name"
+          value: 'WorkForce_Name'
         },
-        { text: "Work Date", value: "Date" },
-        { text: "Bill Rate", value: "WorkForce_Bill_Rate" },
-        { text: "Working Hours", value: "Working_Hours" },
-        { text: "Total Rate", value: "Total" }
+        { text: 'Work Date', value: 'Date' },
+        { text: 'Bill Rate', value: 'WorkForce_Bill_Rate' },
+        { text: 'Working Hours', value: 'Working_Hours' },
+        { text: 'Total Rate', value: 'Total' }
       ],
 
       json_meta: [
         [
           {
-            key: "charset",
-            value: "utf-8"
+            key: 'charset',
+            value: 'utf-8'
           }
         ]
       ]
-    };
+    }
   },
-  created() {
-    this.myid = this.$route.params.id;
-    this.date1 = this.$route.params.date1;
-    this.date2 = this.$route.params.date2;
-    console.log(this.myid + " " + this.date1 + " " + this.date2);
+  created () {
+    this.myid = this.$route.params.id
+    this.date1 = this.$route.params.date1
+    this.date2 = this.$route.params.date2
+    console.log(this.myid + ' ' + this.date1 + ' ' + this.date2)
     /* var url = this.$route.params.id; */
     /* var str = url.split('&')
     this.myid = str[0]
     this.date1 = str[1]
     this.date2 = str[2] */
-    this.getClientInvoice();
+    this.getClientInvoice()
   },
   methods: {
-    getClientInvoice() {
-      var sendId = this.myid + "&" + this.date1 + "&" + this.date2;
+    getClientInvoice () {
+      var sendId = this.myid + '&' + this.date1 + '&' + this.date2
       invoice
         .getClientInvoicerecord(sendId)
         /* .getClientInvoicerecord(this.$route.params.id) */
         .then(result => {
-          this.clientInvoiceData = result.data;
+          this.clientInvoiceData = result.data
 
-          console.log(this.clientInvoiceData);
+          console.log(this.clientInvoiceData)
           for (var i = 0; i < this.clientInvoiceData.length; i++) {
-            this.total_amount += this.clientInvoiceData[i].Total;
+            this.total_amount += this.clientInvoiceData[i].Total
           }
-          console.log(this.total_amount);
+          console.log(this.total_amount)
         })
         .catch(err => {
-          console.log(err);
-        });
+          console.log(err)
+        })
     }
   }
-};
+}
 </script>
 <style scoped>
 /* .downlode {

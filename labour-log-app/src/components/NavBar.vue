@@ -44,18 +44,18 @@
 </template>
 
 <script>
-import router from "../router";
+import router from '../router'
 export default {
   methods: {
-    onClickSources() {
-      router.push({ name: "sources" });
+    onClickSources () {
+      router.push({ name: 'sources' })
     },
-    onClickWorkForces() {
-      router.push({ name: "workforces" });
+    onClickWorkForces () {
+      router.push({ name: 'workforces' })
     },
-    onClickClients() {
-      router.push({ name: "clients" });
+    onClickClients () {
+      router.push({ name: 'clients' })
     }
   }
-};
+}
 </script>

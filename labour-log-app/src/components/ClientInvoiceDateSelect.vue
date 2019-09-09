@@ -74,13 +74,13 @@
 </template>
 
 <script scoped>
-import router from "../router";
+import router from '../router'
 export default {
   components: {},
-  created() {
-    console.log("Client Invoice Date Select");
+  created () {
+    console.log('Client Invoice Date Select')
   },
-  data() {
+  data () {
     return {
       myid: this.$route.params.id,
       date1: new Date().toISOString().substr(0, 10),
@@ -91,28 +91,28 @@ export default {
       menu2: false,
       loader: null,
       loading3: false
-    };
+    }
   },
   watch: {
-    loader() {
-      const l = this.loader;
-      this[l] = !this[l];
+    loader () {
+      const l = this.loader
+      this[l] = !this[l]
 
-      setTimeout(() => (this[l] = false), 3000);
+      setTimeout(() => (this[l] = false), 3000)
 
-      this.loader = null;
+      this.loader = null
     }
   },
   methods: {
-    date1Print() {
+    date1Print () {
       router.push({
-        name: "ClientInvoice",
+        name: 'ClientInvoice',
         params: { id: this.myid, date1: this.date1, date2: this.date2 }
-      });
+      })
       // alert('date : '+this.date1);
     }
   }
-};
+}
 </script>
 
 <style>
