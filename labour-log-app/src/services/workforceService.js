@@ -2,10 +2,10 @@ import Vue from 'vue'
 
 export default {
   getAllWorkForces () {
-    return Vue.http.get('http://localhost:3000/workforces')
+    return Vue.http.get('https://labourlogapis.azurewebsites.net/workforces')
   },
 
   getAllWorkforceSourceJob () {
-    return Vue.http.get('http://localhost:3000/WorkforceSourceJob')
+    return Vue.http.get('https://labourlogapis.azurewebsites.net/WorkforceSourceJob')
   }
 }

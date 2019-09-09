@@ -22,7 +22,7 @@
         <v-list>
           <v-list-item @click="onClickSources">
             <v-list-item-content>
-              <v-list-item-title>Sources</v-list-item-title>
+              <v-list-item-title>Companies</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
           <v-list-item @click="onClickWorkForces">
@@ -44,18 +44,18 @@
 </template>
 
 <script>
-import router from '../router'
+import router from "../router";
 export default {
   methods: {
-    onClickSources () {
-      router.push({ name: 'sources' })
+    onClickSources() {
+      router.push({ name: "sources" });
     },
-    onClickWorkForces () {
-      router.push({ name: 'workforces' })
+    onClickWorkForces() {
+      router.push({ name: "workforces" });
     },
-    onClickClients () {
-      router.push({ name: 'clients' })
+    onClickClients() {
+      router.push({ name: "clients" });
     }
   }
-}
+};
 </script>

@@ -21,11 +21,11 @@
         </v-scroll-y-transition>
       </v-flex>
     </v-layout>-->
-    <v-layout style="height:100px;">
+    <v-layout style="height:150px;">
       <v-layout style="margin-left:-30px;margin-right:-30px;">
         <v-flex>
           <v-img
-            src="https://avataaars.io/?avatarStyle=Circle&topType=LongHairStraight&accessoriesType=Blank&hairColor=Black&facialHairType=Blank&clotheType=Hoodie&clotheColor=Blue03&eyeType=Surprised&eyebrowType=UpDownNatural&mouthType=Default&skinColor=Light"
+            src="https://labourlogapis.azurewebsites.net/images/avataaars.png"
             class="mb-4"
             height="100px"
             contain
@@ -46,15 +46,36 @@
           <!-- style=" word-break: break-all;" -->
           <td width="auto" style=" word-break: break-all;">
             <div v-show="todo.edit == false" style="text-align:left;margin-left:10px;">
-              <label  style>{{todo.value}}</label>
+              <label style>{{todo.value}}</label>
             </div>
             <v-text-field v-show="todo.edit == true" v-model="todo.value" style="width:90%;" />
           </td>
         </tr>
+        <tr>
+          <v-btn
+            v-show="show_edit_save_icon==false"
+            dark
+            color="cyan"
+            icon
+            @click="getfocus(todos)"
+            class="edit_btn"
+          >
+            <v-icon>edit</v-icon>
+          </v-btn>
+          <v-btn
+            v-show="show_edit_save_icon==true"
+            color="success"
+            icon
+            @click="getfocusout(todos);update_fun()"
+            class="done_btn"
+          >
+            <v-icon>done</v-icon>
+          </v-btn>
+        </tr>
       </table>
     </v-layout>
     <v-layout>
-      <v-btn
+      <!-- <v-btn
         v-show="show_edit_save_icon==false"
         dark
         color="cyan"
@@ -72,13 +93,13 @@
         class="done_btn"
       >
         <v-icon>done</v-icon>
-      </v-btn>
+      </v-btn>-->
     </v-layout>
   </v-card>
 </template>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" scoped></script>
-<script src="https://unpkg.com/vue/dist/vue.js"></script>
-<script>
+<script src="https://unpkg.com/vue/dist/vue.js" scoped></script>
+<script scoped>
 import JQuery from "jquery";
 let $ = JQuery;
 $(".my-button").click(function() {
@@ -155,11 +176,14 @@ export default {
       console.log("--------");
       let source_id = this.sourceObj.source_id;
       this.$http
-        .put("http://localhost:3000/Sources/update/" + source_id, {
-          source_name: this.todos[0].value,
-          source_contact: this.todos[2].value,
-          source_email: this.todos[1].value
-        })
+        .put(
+          "https://labourlogapis.azurewebsites.net/Sources/update/" + source_id,
+          {
+            source_name: this.todos[0].value,
+            source_contact: this.todos[2].value,
+            source_email: this.todos[1].value
+          }
+        )
         .then(result => {
           console.log(result);
         })
@@ -200,17 +224,17 @@ export default {
 };
 </script>
 
-<style>
+<style >
 .edit_btn {
   color: black;
   font-size: 10px;
   border: 1px solid;
   width: 50px;
   border: #ccc 0px solid;
-  top: -110px;
+  top: -120px;
 
-  position: fixed;
-  left: 80%;
+  /* position: fixed; */
+  left: 210%;
   outline: none;
 }
 .done_btn {
@@ -219,10 +243,10 @@ export default {
   border: 1px solid;
   width: 50px;
   border: #ccc 0px solid;
-  top: -110px;
+  top: -250px;
 
-  position: fixed;
-  left: 80%;
+  /* position: fixed; */
+  left: 210%;
   outline: none;
 }
 .big {

@@ -32,11 +32,13 @@
       </v-flex>
       <v-flex xs6 sm6 md6>
         <v-text-field
+          autofocus
           style="width:200px;"
           label="Hours Worked"
           type="number"
           :disabled="!isEditing"
           v-model="work_hours"
+          v-on:keyup.enter="submitForm"
           required
         ></v-text-field>
       </v-flex>
@@ -111,10 +113,13 @@ export default {
         this.dd.getUTCDate()
       ].join('-')
       this.$http
-        .post('http://localhost:3000/workForceCalenderDetailsByIdandDate/', {
-          workforce_id: this.workForceObj.workforce_id,
-          work_date: dFormat
-        })
+        .post(
+          "https://labourlogapis.azurewebsites.net/workForceCalenderDetailsByIdandDate/",
+          {
+            workforce_id: this.workForceObj.workforce_id,
+            work_date: dFormat
+          }
+        )
         .then(res => {
           this.getWorkDetails = res.data
           /* console.log(this.getWorkDetails); */
@@ -147,7 +152,7 @@ export default {
     updateForm () {
       if (this.isDataFlag) {
         this.$http
-          .put('http://localhost:3000/WorkForceWorkUpdate/', {
+          .put("https://labourlogapis.azurewebsites.net/WorkForceWorkUpdate/", {
             workforce_work_id: this.getWorkDetails[0].workforce_work_id,
             client_id: this.selectedClient,
             work_hours: this.work_hours
@@ -173,12 +178,15 @@ export default {
           this.dd.getUTCDate()
         ].join('-')
         this.$http
-          .post('http://localhost:3000/Workforcesworkingdetails', {
-            client_id: this.selectedClient,
-            workforce_id: this.workForceObj.workforce_id,
-            work_date: dFormat,
-            work_hours: this.work_hours
-          })
+          .post(
+            "https://labourlogapis.azurewebsites.net/Workforcesworkingdetails",
+            {
+              client_id: this.selectedClient,
+              workforce_id: this.workForceObj.workforce_id,
+              work_date: dFormat,
+              work_hours: this.work_hours
+            }
+          )
           .then(res => {
             this.message = 'Details submitted successfully!'
             this.snackbar = true
