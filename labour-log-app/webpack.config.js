@@ -2,6 +2,10 @@ var path = require('path')
 module.exports = [
 
   {
+    devServer: {
+      historyApiFallback: true, // is it enabled ?
+      inline: true
+    },
     entry: {
       'clients': './src/components/Clients.vue',
       'sources': './src/components/Sources.vue',

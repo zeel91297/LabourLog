@@ -109,7 +109,7 @@ export default {
       { heading: "Name:", value: "one value", edit: false, index: 1 },
       { heading: "Email ID:", value: "one value", edit: false, index: 2 },
       { heading: "Contact No:", value: "otro titulo", edit: false, index: 3 },
-      { heading: "Workers Working:", value: "13", edit: false, index: 4 }
+      // { heading: "Workers Working:", value: "13", edit: false, index: 4 }
       // { title: "one value", edit: false }
     ],
     currName: "",

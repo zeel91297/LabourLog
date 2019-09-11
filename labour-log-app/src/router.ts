@@ -6,6 +6,7 @@ import WorkForces from '@/components/Workforces.vue'
 import Clients from '@/components/Clients.vue'
 import ClientInvoiceDateSelect from '@/components/ClientInvoiceDateSelect.vue'
 import ClientInvoice from '@/components/ClientInvoice.vue'
+import PageNotFound from '@/components/404.vue'
 Vue.use(Router)
 
 export default new Router({
@@ -13,11 +14,7 @@ export default new Router({
   /* base: process.env.BASE_URL, */
   base: '',
   routes: [
-    {
-      path: '/',
-      name: 'root',
-      component: WorkForces
-    },
+
     {
       path: '/sources',
       name: 'sources',
@@ -46,6 +43,17 @@ export default new Router({
       name: 'ClientInvoice',
       component: ClientInvoice
       // component: () => import('@/components/ClientInvoice.vue')
+    },
+    {
+      path: '/',
+      name: 'root',
+      component: WorkForces
+
+    },
+    {
+      path: '*',
+      name: 'notFound',
+      component: PageNotFound
     }
   ]
 })
