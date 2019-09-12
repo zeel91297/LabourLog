@@ -15,6 +15,7 @@
     "mdbvue": "^5.6.0",
     "node-xlsx": "^0.15.0",
     "register-service-worker": "^1.6.2",
+    "sw-precache": "^5.2.1",
     "v-calendar": "^1.0.0-beta.14",
     "vue": "^2.6.10",
     "vue-class-component": "^7.0.2",

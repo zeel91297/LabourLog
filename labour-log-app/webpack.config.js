@@ -16,7 +16,9 @@ module.exports = [
     output: {
       /* filename: './app/bundle/[name].js' */
       path: path.resolve(__dirname, './dist'),
-      publicPath: './dist/',
+      // path: path.resolve(__dirname, './src/dist'),
+      // publicPath: './dist/',
+      publicPath: '/',
       filename: 'build.js'
     },
     module: {

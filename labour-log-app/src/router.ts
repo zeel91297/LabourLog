@@ -10,20 +10,30 @@ import PageNotFound from '@/components/404.vue'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   /* base: process.env.BASE_URL, */
-  base: '',
+  // base: '',
   routes: [
-
+    {
+      path: '/',
+      name: 'root',
+      component: WorkForces
+    },
     {
       path: '/sources',
       name: 'sources',
       component: Sources
+      // meta:{
+      //  guest:true
+      // }
     },
     {
       path: '/workforces',
       name: 'workforces',
       component: WorkForces
+      // meta:{
+      //   requiresAuth: false
+      // }
     },
     {
       path: '/clients',
@@ -43,12 +53,6 @@ export default new Router({
       name: 'ClientInvoice',
       component: ClientInvoice
       // component: () => import('@/components/ClientInvoice.vue')
-    },
-    {
-      path: '/',
-      name: 'root',
-      component: WorkForces
-
     },
     {
       path: '*',
