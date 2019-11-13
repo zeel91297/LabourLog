@@ -2,7 +2,7 @@
   <v-layout>
     <v-flex xs10 sm40 offset-sm>
       <v-card>
-        <v-img src="https://www.themailcompany.es/wp-content/uploads/header_01.jpg" height="130px"></v-img>
+        <v-img src="https://labourlogapis.azurewebsites.net/images/group-of-company-img-1024x505.jpg" height="130px"></v-img>
 
         <v-card-title primary-title>
           <div style="font-size:15px;">{{todos[0].value}}</div>
